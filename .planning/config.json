@@ -1,0 +1,15 @@
+{
+  "workflow": {
+    "research_before_questions": false,
+    "compact_content": false,
+    "granularity": "standard"
+  },
+  "runtime": "antigravity",
+  "project": {
+    "name": "UniYaar",
+    "description": "Apni Uni. Apna Yaar. Modern Smart University Companion Platform",
+    "backend": "Spring Boot (Java 21)",
+    "frontend": "React + Vite + TypeScript + Tailwind CSS",
+    "database": "MySQL"
+  }
+}
