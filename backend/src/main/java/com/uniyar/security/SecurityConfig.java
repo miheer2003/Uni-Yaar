@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**", "/api/health", "/api/").permitAll()
-                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/buildings/**", "/api/map/**").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/buildings/**", "/api/map/**", "/api/faculty/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/staff/**").hasAnyRole("STAFF", "ADMIN")
                         .requestMatchers("/api/faculty/**").hasAnyRole("FACULTY", "STAFF", "ADMIN")

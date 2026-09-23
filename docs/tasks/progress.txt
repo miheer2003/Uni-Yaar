@@ -6,3 +6,5 @@ Completed: Phase 3 Plan 01 - Backend Campus Spatial Hierarchy, Entities, Reposit
 Completed: Phase 3 Plan 02 - Frontend Buildings Directory, Floor Browser, and Room Details
 Completed: Phase 4 Plan 01 - Backend Map Markers Aggregator Endpoint
 Completed: Phase 4 Plan 02 - Interactive Leaflet OpenStreetMap Campus Map, Category Filters, and Walking Route Engine
+Completed: Phase 5 Plan 01 - Backend Faculty and Timetable Entities, Repositories, and Scheduled Timetable APIs
+Completed: Phase 5 Plan 02 - Frontend Faculty Directory, Search Filters, Weekly Schedule Grid, and Map Links

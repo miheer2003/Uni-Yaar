@@ -149,4 +149,28 @@ export const mapApi = {
   },
 };
 
+// Faculty API
+export const facultyApi = {
+  getFacultyList: (search?: string, departmentId?: number, page = 0, size = 20) => {
+    const params = new URLSearchParams();
+    if (search) params.append('search', search);
+    if (departmentId) params.append('departmentId', departmentId.toString());
+    params.append('page', page.toString());
+    params.append('size', size.toString());
+    return client.get<ApiResponse<{
+      content: import('../types/faculty').Faculty[];
+      totalElements: number;
+      totalPages: number;
+      number: number;
+    }>>(`/faculty?${params.toString()}`);
+  },
+
+  getFaculty: (id: number) =>
+    client.get<ApiResponse<import('../types/faculty').Faculty>>(`/faculty/${id}`),
+
+  getTimetable: (id: number) =>
+    client.get<ApiResponse<import('../types/faculty').TimetableEntry[]>>(`/faculty/${id}/timetable`),
+};
+
+
 
