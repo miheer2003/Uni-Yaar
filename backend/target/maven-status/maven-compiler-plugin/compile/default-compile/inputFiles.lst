@@ -2,12 +2,14 @@
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/AuthController.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/CampusController.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/HealthController.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/MapController.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/ApiResponse.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/auth/AuthRequest.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/auth/AuthResponse.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/campus/BuildingRequest.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/campus/BuildingResponse.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/campus/FloorResponse.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/campus/MapMarkerDTO.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/campus/RoomResponse.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/entity/Building.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/entity/Department.java
@@ -30,4 +32,5 @@
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/security/JwtTokenProvider.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/security/SecurityConfig.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/service/CampusService.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/service/MapService.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/service/UserService.java

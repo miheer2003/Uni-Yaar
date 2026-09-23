@@ -140,3 +140,13 @@ export const campusApi = {
     client.get<ApiResponse<import('../types/campus').Room>>(`/buildings/rooms/${roomId}`),
 };
 
+// Map API
+export const mapApi = {
+  getMarkers: (category?: string) => {
+    const params = new URLSearchParams();
+    if (category && category !== 'ALL') params.append('category', category);
+    return client.get<ApiResponse<import('../types/map').MapMarker[]>>(`/map/markers?${params.toString()}`);
+  },
+};
+
+
