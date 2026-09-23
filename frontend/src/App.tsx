@@ -6,6 +6,8 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Buildings from './pages/Buildings';
+import BuildingDetail from './pages/BuildingDetail';
 import { PublicRoute } from './components/auth/ProtectedRoute';
 import { healthApi } from './api/client';
 
@@ -94,6 +96,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+          <Route path="/buildings" element={<Buildings />} />
+          <Route path="/buildings/:id" element={<BuildingDetail />} />
           <Route path="/map" element={<div className="p-8 text-center text-slate-400">Campus Map - Coming Soon</div>} />
           <Route path="/faculty" element={<div className="p-8 text-center text-slate-400">Faculty Finder - Coming Soon</div>} />
           <Route path="/food" element={<div className="p-8 text-center text-slate-400">Food and Mess - Coming Soon</div>} />

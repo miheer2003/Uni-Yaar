@@ -111,3 +111,32 @@ export const authApi = {
   getProfile: () => 
     client.get<ApiResponse<User>>('/auth/profile'),
 };
+
+// Campus API
+export const campusApi = {
+  getBuildings: (search?: string, page = 0, size = 20) => {
+    const params = new URLSearchParams();
+    if (search) params.append('search', search);
+    params.append('page', page.toString());
+    params.append('size', size.toString());
+    return client.get<ApiResponse<{
+      content: import('../types/campus').Building[];
+      totalElements: number;
+      totalPages: number;
+      number: number;
+    }>>(`/buildings?${params.toString()}`);
+  },
+
+  getBuilding: (id: number) =>
+    client.get<ApiResponse<import('../types/campus').Building>>(`/buildings/${id}`),
+
+  getFloors: (buildingId: number) =>
+    client.get<ApiResponse<import('../types/campus').Floor[]>>(`/buildings/${buildingId}/floors`),
+
+  getRooms: (floorId: number) =>
+    client.get<ApiResponse<import('../types/campus').Room[]>>(`/buildings/floors/${floorId}/rooms`),
+
+  getRoom: (roomId: number) =>
+    client.get<ApiResponse<import('../types/campus').Room>>(`/buildings/rooms/${roomId}`),
+};
+

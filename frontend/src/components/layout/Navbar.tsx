@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
+  Building2,
   MapPin, 
   Users, 
   UtensilsCrossed, 
@@ -19,6 +20,7 @@ import { clsx } from 'clsx';
 import { useAuth } from '../../context/AuthContext';
 
 const navLinks = [
+  { name: 'Buildings', href: '/buildings', icon: Building2 },
   { name: 'Campus Map', href: '/map', icon: MapPin },
   { name: 'Faculty', href: '/faculty', icon: Users },
   { name: 'Food & Mess', href: '/food', icon: UtensilsCrossed },
