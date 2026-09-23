@@ -1,0 +1,11 @@
+# Build artifacts
+backend/target/
+frontend/dist/
+frontend/node_modules/
+*.tsbuildinfo
+
+# IDE & OS
+.DS_Store
+.idea/
+*.iml
+.vscode/

@@ -8,3 +8,5 @@ Completed: Phase 4 Plan 01 - Backend Map Markers Aggregator Endpoint
 Completed: Phase 4 Plan 02 - Interactive Leaflet OpenStreetMap Campus Map, Category Filters, and Walking Route Engine
 Completed: Phase 5 Plan 01 - Backend Faculty and Timetable Entities, Repositories, and Scheduled Timetable APIs
 Completed: Phase 5 Plan 02 - Frontend Faculty Directory, Search Filters, Weekly Schedule Grid, and Map Links
+Completed: Phase 6 Plan 01 - Backend Food Facility, Menu, MenuItem Entities, Repositories, and REST Endpoints
+Completed: Phase 6 Plan 02 - Frontend Food & Mess Explorer, Daily Meal View, Dietary Badges, and Map Navigation

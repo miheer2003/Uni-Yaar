@@ -172,5 +172,21 @@ export const facultyApi = {
     client.get<ApiResponse<import('../types/faculty').TimetableEntry[]>>(`/faculty/${id}/timetable`),
 };
 
+// Food API
+export const foodApi = {
+  getFacilities: () =>
+    client.get<ApiResponse<import('../types/food').FoodFacility[]>>('/food-facilities'),
+
+  getFacility: (id: number) =>
+    client.get<ApiResponse<import('../types/food').FoodFacility>>(`/food-facilities/${id}`),
+
+  getMenu: (facilityId: number, date?: string) => {
+    const params = new URLSearchParams();
+    if (date) params.append('date', date);
+    return client.get<ApiResponse<import('../types/food').Menu>>(`/food-facilities/${facilityId}/menu?${params.toString()}`);
+  },
+};
+
+
 
 
