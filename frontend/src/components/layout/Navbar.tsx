@@ -138,7 +138,7 @@ export default function Navbar() {
                       <p className="text-xs font-medium text-white">{user.fullName}</p>
                       <p className="text-[11px] text-slate-400 truncate">{user.email}</p>
                     </div>
-                    {user.role === 'ROLE_ADMIN' && (
+                    {(user.role === 'ROLE_ADMIN' || user.role === 'ROLE_STAFF') && (
                       <Link
                         to="/admin"
                         onClick={() => setIsUserMenuOpen(false)}

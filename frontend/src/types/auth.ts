@@ -1,8 +1,11 @@
+export type UserRole = 'ROLE_STUDENT' | 'ROLE_FACULTY' | 'ROLE_STAFF' | 'ROLE_ADMIN';
+export type Role = UserRole;
+
 export interface User {
   id: number;
   email: string;
   fullName: string;
-  role: string;
+  role: UserRole;
   createdAt: string;
 }
 

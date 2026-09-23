@@ -287,4 +287,29 @@ export const bookmarkApi = {
     client.delete<ApiResponse<void>>(`/bookmarks/${id}`),
 };
 
+// Admin & Staff Console API
+export const adminApi = {
+  getStats: () =>
+    client.get<ApiResponse<import('../types/admin').AdminDashboardMetrics>>('/admin/stats'),
+
+  getUsers: () =>
+    client.get<ApiResponse<import('../types/admin').AdminUser[]>>('/admin/users'),
+
+  updateUserRole: (userId: number, role: import('../types/auth').Role) =>
+    client.patch<ApiResponse<import('../types/admin').AdminUser>>(`/admin/users/${userId}/role`, { role }),
+
+  resolveMaintenance: (noticeId: number) =>
+    client.put<ApiResponse<void>>(`/admin/maintenance/${noticeId}/resolve`),
+
+  createMaintenanceNotice: (data: Partial<import('../types/facility').MaintenanceNotice>) =>
+    client.post<ApiResponse<import('../types/facility').MaintenanceNotice>>('/admin/maintenance', data),
+
+  createEvent: (data: Partial<import('../types/event').EventItem>) =>
+    client.post<ApiResponse<import('../types/event').EventItem>>('/admin/events', data),
+
+  createAnnouncement: (data: Partial<import('../types/announcement').Announcement>) =>
+    client.post<ApiResponse<import('../types/announcement').Announcement>>('/admin/announcements', data),
+};
+
+
 

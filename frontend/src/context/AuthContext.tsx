@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { AuthContextType, User, LoginRequest, RegisterRequest } from '../types/auth';
+import { AuthContextType, User, UserRole, LoginRequest, RegisterRequest } from '../types/auth';
 import { authApi } from '../api/client';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -14,7 +14,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       try {
         const response = await authApi.getProfile();
         if (response.data.success && response.data.data) {
-          setUser(response.data.data);
+          setUser(response.data.data as unknown as User);
         } else {
           localStorage.removeItem('token');
         }
@@ -34,7 +34,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (response.data.success && response.data.data) {
       const { token, userId, email, fullName, role } = response.data.data;
       localStorage.setItem('token', token);
-      setUser({ id: userId, email, fullName, role, createdAt: new Date().toISOString() });
+      setUser({ id: userId, email, fullName, role: role as UserRole, createdAt: new Date().toISOString() });
     } else {
       throw new Error(response.data.message || 'Login failed');
     }
@@ -45,7 +45,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (response.data.success && response.data.data) {
       const { token, userId, email, fullName, role } = response.data.data;
       localStorage.setItem('token', token);
-      setUser({ id: userId, email, fullName, role, createdAt: new Date().toISOString() });
+      setUser({ id: userId, email, fullName, role: role as UserRole, createdAt: new Date().toISOString() });
     } else {
       throw new Error(response.data.message || 'Registration failed');
     }

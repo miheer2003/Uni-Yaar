@@ -1,4 +1,5 @@
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/UniYaarApplication.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/AdminController.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/AnnouncementController.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/AuthController.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/BookmarkController.java
@@ -11,6 +12,9 @@
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/MapController.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/SearchController.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/ApiResponse.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/admin/AdminDashboardMetrics.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/admin/AdminUserResponse.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/admin/UserRoleUpdateRequest.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/announcement/AnnouncementResponse.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/auth/AuthRequest.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/auth/AuthResponse.java
@@ -84,6 +88,7 @@
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/security/JwtAuthenticationFilter.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/security/JwtTokenProvider.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/security/SecurityConfig.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/service/AdminService.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/service/AnnouncementService.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/service/BookmarkService.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/service/CampusService.java

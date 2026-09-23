@@ -35,7 +35,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**", "/api/health", "/api/").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/buildings/**", "/api/map/**", "/api/faculty/**", "/api/food-facilities/**", "/api/events/**", "/api/facilities/**", "/api/announcements/**", "/api/search/**").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/events/*/register", "/api/facilities/reports/**").permitAll()
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/admin/**").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers("/api/staff/**").hasAnyRole("STAFF", "ADMIN")
                         .requestMatchers("/api/faculty/**").hasAnyRole("FACULTY", "STAFF", "ADMIN")
                         .anyRequest().authenticated()
