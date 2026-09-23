@@ -12,6 +12,7 @@ UniYaar is an enterprise-grade, modern smart university companion platform built
    - Leaflet OpenStreetMap integration with custom branded SVG markers.
    - Category filtering (Academics, Dining, Hostels, Sports & SAC, Auditorium).
    - Dynamic walking distance/time estimator and path preview between campus buildings.
+   - Full keyboard accessibility and responsive controls.
 2. **🏛️ Campus Spatial Hierarchy**:
    - Multi-level structure: University ➔ Departments ➔ Buildings ➔ Floors ➔ Rooms.
    - Room categorization: Lecture Halls, Computing Labs, Faculty Offices, Auditoriums, Seminar Rooms.
@@ -30,9 +31,9 @@ UniYaar is an enterprise-grade, modern smart university companion platform built
 7. **📢 Campus Notice Board & Emergency Broadcast**:
    - Priority-tiered announcements (`URGENT`, `IMPORTANT`, `NORMAL`) with real-time ticker bar for emergency weather or campus advisories.
    - Role-targeted filtering (All, Students, Faculty, Staff).
-8. **⚡ Omnisearch & Command Palette (Cmd+K / Ctrl+K)**:
+8. **⚡ Omnisearch & Command Palette (`Cmd + K` / `Ctrl + K`)**:
    - Mac Spotlight-style floating command palette searchable from anywhere in the app.
-   - Multi-domain instant aggregator querying 7 entity types simultaneously with keyboard arrows and shortcut execution.
+   - Multi-domain instant aggregator querying 7 entity types simultaneously with keyboard navigation.
 9. **🛡️ Enterprise Administration & Governance Console**:
    - System telemetry metrics (total users, active notices, open community tickets, event RSVPs).
    - One-click incident triage desk (In Progress / Resolved workflow with technician notes).
@@ -100,21 +101,34 @@ graph TD
 
 ---
 
-## 🚀 Quick Start Guide
+## 🐳 Running with Docker Compose (Recommended)
+
+Run the entire platform (MySQL, Spring Boot Backend, and Nginx-powered Frontend) with a single command:
+
+```bash
+docker-compose up --build
+```
+
+- **Frontend Application**: `http://localhost:3000`
+- **Backend API**: `http://localhost:8080/api`
+- **Database**: Internal Docker network MySQL instance (with healthcheck and pre-seeded database)
+
+---
+
+## 🚀 Local Development Quick Start
 
 ### Prerequisites
 - **Java 21** (`openjdk@21`)
 - **Maven 3.8+**
 - **Node.js 18+** & `npm`
-- **MySQL 8.0+** running locally on port 3306
+- **MySQL 8.0+** running on port 3306
 
-### 1. Database Configuration
-By default, the backend connects to MySQL at `localhost:3306/uniyaar_db` with user `root` and password `password`.
-Create the database:
+### 1. Database Setup
+Ensure MySQL is running and create the database:
 ```sql
 CREATE DATABASE IF NOT EXISTS uniyaar_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
-*(Or customize credentials in `backend/src/main/resources/application.yml`)*
+*(Default settings connect to `localhost:3306/uniyaar_db` with `root` / `password`. Customize in `backend/src/main/resources/application.yml` if needed.)*
 
 ### 2. Backend Setup & Startup
 ```bash
@@ -122,13 +136,13 @@ cd backend
 export JAVA_HOME=/opt/homebrew/opt/openjdk@21
 export PATH="$JAVA_HOME/bin:$PATH"
 
-# Run tests & verify compilation
-mvn test-compile
+# Run tests
+mvn test
 
 # Start the Spring Boot application
 mvn spring-boot:run
 ```
-> **Auto-Seeding**: On initial boot, `DataSeeder.java` automatically populates the database with buildings, rooms, timetables, mess menus, hackathons, and demo users.
+> **Auto-Seeding**: On first run, `DataSeeder.java` automatically populates the database with buildings, rooms, timetables, mess menus, hackathons, and demo users.
 
 Backend starts on: `http://localhost:8080` (API base: `http://localhost:8080/api`)
 
@@ -148,7 +162,7 @@ Frontend runs on: `http://localhost:3000`
 
 ## 🔑 Pre-Seeded Demo Accounts
 
-The database comes pre-loaded with authentic credentials across all roles:
+The system comes pre-loaded with credentials across all roles:
 
 | Role | Email Address | Password | Permissions & Access |
 |---|---|---|---|
@@ -165,7 +179,7 @@ The database comes pre-loaded with authentic credentials across all roles:
 | Shortcut | Action | Description |
 |---|---|---|
 | `Cmd + K` (Mac) / `Ctrl + K` (Win/Linux) | **Open Omnisearch** | Instant universal spotlight search across all campus entities |
-| `↑` / `↓` | **Navigate Results** | Seamless keyboard navigation across search results |
+| `↑` / `↓` | **Navigate Results** | Keyboard navigation across search results |
 | `Enter` | **Select Item** | Navigate directly to the selected building, room, faculty, or event |
 | `Esc` | **Close Palette** | Dismiss search modal |
 
@@ -232,25 +246,6 @@ All responses follow the unified response format:
 - `POST /api/admin/maintenance` — Publish new facility outage advisory (`ROLE_STAFF`, `ROLE_ADMIN`).
 - `GET /api/admin/users` — List user roster (`ROLE_ADMIN`).
 - `PUT /api/admin/users/{id}/role` — Promote or modify user role (`ROLE_ADMIN`).
-
----
-
-## 🏆 Project Completion & Roadmap
-
-| Phase | Milestone | Status |
-|:---:|---|:---:|
-| 1 | **Project Architecture & Monorepo Foundation** | ✅ Complete |
-| 2 | **Authentication & Role-Based Access Control (RBAC)** | ✅ Complete |
-| 3 | **Campus Spatial Hierarchy & Location Directory** | ✅ Complete |
-| 4 | **Interactive Campus Map & Navigation Engine** | ✅ Complete |
-| 5 | **Faculty Finder & Scheduled Timetables** | ✅ Complete |
-| 6 | **Food & Mess Explorer with Dietary Tags** | ✅ Complete |
-| 7 | **Events & Hackathons Hub with RSVP System** | ✅ Complete |
-| 8 | **Facility Maintenance & Community Issue Reporting Desk** | ✅ Complete |
-| 9 | **Campus Notice Board & Emergency Broadcast Center** | ✅ Complete |
-| 10 | **Global Omnisearch (Cmd+K) & Personal Bookmarks** | ✅ Complete |
-| 11 | **Enterprise Admin Dashboard & Incident Governance Console** | ✅ Complete |
-| 12 | **Production Data Seeder, Verification & Launch Documentation** | ✅ Complete |
 
 ---
 
