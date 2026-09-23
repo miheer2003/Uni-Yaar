@@ -8,6 +8,7 @@ import {
   UtensilsCrossed, 
   Calendar, 
   Wrench, 
+  Bell,
   Search,
   Menu,
   X,
@@ -26,6 +27,7 @@ const navLinks = [
   { name: 'Food & Mess', href: '/food', icon: UtensilsCrossed },
   { name: 'Events', href: '/events', icon: Calendar },
   { name: 'Facilities', href: '/facilities', icon: Wrench },
+  { name: 'Notices', href: '/announcements', icon: Bell },
 ];
 
 const roleColors: Record<string, string> = {

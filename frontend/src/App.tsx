@@ -14,6 +14,7 @@ import FacultyDetail from './pages/FacultyDetail';
 import FoodMess from './pages/FoodMess';
 import { Events } from './pages/Events';
 import { Facilities } from './pages/Facilities';
+import { Announcements } from './pages/Announcements';
 import { PublicRoute } from './components/auth/ProtectedRoute';
 import { healthApi } from './api/client';
 
@@ -110,6 +111,7 @@ function App() {
           <Route path="/food" element={<FoodMess />} />
           <Route path="/events" element={<Events />} />
           <Route path="/facilities" element={<Facilities />} />
+          <Route path="/announcements" element={<Announcements />} />
         </Routes>
       </main>
       <Footer />

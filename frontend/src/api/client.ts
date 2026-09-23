@@ -246,3 +246,24 @@ export const facilityApi = {
     }),
 };
 
+// Announcement API
+export const announcementApi = {
+  getAll: (priority?: string, category?: string, audience?: string, departmentId?: number) => {
+    const params = new URLSearchParams();
+    if (priority) params.append('priority', priority);
+    if (category) params.append('category', category);
+    if (audience) params.append('audience', audience);
+    if (departmentId) params.append('departmentId', departmentId.toString());
+    return client.get<ApiResponse<import('../types/announcement').Announcement[]>>(
+      `/announcements?${params.toString()}`
+    );
+  },
+
+  getUrgent: () =>
+    client.get<ApiResponse<import('../types/announcement').Announcement[]>>('/announcements/urgent'),
+
+  getById: (id: number) =>
+    client.get<ApiResponse<import('../types/announcement').Announcement>>(`/announcements/${id}`),
+};
+
+
