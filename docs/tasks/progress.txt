@@ -10,3 +10,5 @@ Completed: Phase 5 Plan 01 - Backend Faculty and Timetable Entities, Repositorie
 Completed: Phase 5 Plan 02 - Frontend Faculty Directory, Search Filters, Weekly Schedule Grid, and Map Links
 Completed: Phase 6 Plan 01 - Backend Food Facility, Menu, MenuItem Entities, Repositories, and REST Endpoints
 Completed: Phase 6 Plan 02 - Frontend Food & Mess Explorer, Daily Meal View, Dietary Badges, and Map Navigation
+Completed: Phase 7 Plan 01 - Backend Event Entities, Repositories, Services, and REST Controller Endpoints
+Completed: Phase 7 Plan 02 - Frontend Events & Hackathons Hub, Category & Status Filters, RSVP Modal, and Venue Navigation

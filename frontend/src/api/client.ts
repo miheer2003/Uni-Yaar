@@ -187,6 +187,22 @@ export const foodApi = {
   },
 };
 
+// Event API
+export const eventApi = {
+  getAll: (category?: string, status?: string, upcoming?: boolean) => {
+    const params = new URLSearchParams();
+    if (category) params.append('category', category);
+    if (status) params.append('status', status);
+    if (upcoming) params.append('upcoming', 'true');
+    return client.get<ApiResponse<import('../types/event').EventItem[]>>(`/events?${params.toString()}`);
+  },
 
+  getById: (id: number) =>
+    client.get<ApiResponse<import('../types/event').EventItem>>(`/events/${id}`),
 
+  getFeatured: () =>
+    client.get<ApiResponse<import('../types/event').EventItem[]>>('/events/featured'),
 
+  register: (id: number) =>
+    client.post<ApiResponse<import('../types/event').EventItem>>(`/events/${id}/register`),
+};
