@@ -28,8 +28,7 @@ public class AdminUserResponse {
                 .fullName(user.getFullName())
                 .email(user.getEmail())
                 .role(user.getRole())
-                .universityId(user.getUniversity() != null ? user.getUniversity().getId() : null)
-                .universityName(user.getUniversity() != null ? user.getUniversity().getName() : "Campus")
+                .universityName("Apex Institute of Technology")
                 .createdAt(user.getCreatedAt())
                 .build();
     }

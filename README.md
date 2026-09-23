@@ -1,148 +1,259 @@
 # UniYaar - Smart University Companion Platform
 
-> **Apni Uni. Apna Yaar.** — Your Campus, Simplified.
+> **Apni Uni. Apna Yaar.** — Your Complete Campus Companion.
 
-UniYaar is a production-quality, modern smart university companion platform built with Spring Boot (Java 21), MySQL, React/Vite, TypeScript, Tailwind CSS, and Leaflet maps. It unifies fragmented campus information—buildings, rooms, faculty schedules, mess menus, events, maintenance alerts, issue reporting, and navigation—into a single intuitive interface.
+UniYaar is an enterprise-grade, modern smart university companion platform built with **Spring Boot 3 (Java 21)**, **MySQL**, **React 18 / Vite (TypeScript)**, **Tailwind CSS**, and **Leaflet Maps**. It unifies fragmented campus data—buildings, indoor room paths, scheduled faculty timetables, daily mess menus, tech hackathons & cultural fests, facility maintenance status & community issue tracking, broadcast circulars, and universal search—into a lightning-fast, cohesive experience.
 
-## 🎯 Core Value
+---
 
-Students can instantly discover where campus resources, people, food, and events are, verify their real-time availability/maintenance status, and navigate to them without friction.
+## 🌟 Key Capabilities & Modules
 
-## 🛠️ Tech Stack
+1. **🗺️ Interactive Campus Spatial Map & Navigation**:
+   - Leaflet OpenStreetMap integration with custom branded SVG markers.
+   - Category filtering (Academics, Dining, Hostels, Sports & SAC, Auditorium).
+   - Dynamic walking distance/time estimator and path preview between campus buildings.
+2. **🏛️ Campus Spatial Hierarchy**:
+   - Multi-level structure: University ➔ Departments ➔ Buildings ➔ Floors ➔ Rooms.
+   - Room categorization: Lecture Halls, Computing Labs, Faculty Offices, Auditoriums, Seminar Rooms.
+3. **👨‍🏫 Faculty Finder & Timetables**:
+   - Real-time scheduled location discovery (privacy-first: schedules rather than intrusive GPS tracking).
+   - Full weekly schedule grid (Monday–Saturday) with time slots, course names, and room navigation links.
+4. **🍽️ Food & Mess Hub**:
+   - Live daily breakfast, lunch, snacks, and dinner menus across campus messes and canteens.
+   - Dietary badges (`VEG`, `NON_VEG`, `JAIN`) and transparent pricing.
+5. **🎉 Events & Hackathons Hub**:
+   - Real-time event discovery with category filters (Hackathon, Workshop, Cultural, Sports, Seminar).
+   - Live countdowns, capacity indicators, one-click RSVP modal, and venue map routing.
+6. **🛠️ Maintenance Status & Student Issue Desk**:
+   - Real-time facility outage notices with intelligent alternative route recommendations (e.g. broken elevator ➔ alternative lift / accessibility ramp).
+   - Community-driven issue reporting with upvote escalation queue for priority resolution.
+7. **📢 Campus Notice Board & Emergency Broadcast**:
+   - Priority-tiered announcements (`URGENT`, `IMPORTANT`, `NORMAL`) with real-time ticker bar for emergency weather or campus advisories.
+   - Role-targeted filtering (All, Students, Faculty, Staff).
+8. **⚡ Omnisearch & Command Palette (Cmd+K / Ctrl+K)**:
+   - Mac Spotlight-style floating command palette searchable from anywhere in the app.
+   - Multi-domain instant aggregator querying 7 entity types simultaneously with keyboard arrows and shortcut execution.
+9. **🛡️ Enterprise Administration & Governance Console**:
+   - System telemetry metrics (total users, active notices, open community tickets, event RSVPs).
+   - One-click incident triage desk (In Progress / Resolved workflow with technician notes).
+   - Broadcast publisher for campus-wide facility outages and emergency announcements.
+   - Role governance management (`ROLE_STUDENT`, `ROLE_FACULTY`, `ROLE_STAFF`, `ROLE_ADMIN`).
 
-### Backend
-- **Java 21** with **Spring Boot 3.3.x**
-- **Spring Web** - RESTful APIs
-- **Spring Data JPA** - Data persistence with Hibernate
-- **MySQL** - Relational database
-- **Bean Validation** - Input validation
-- **Lombok** - Boilerplate reduction
+---
 
-### Frontend
-- **React 18** with **TypeScript**
-- **Vite** - Build tool
-- **Tailwind CSS** - Styling
-- **Framer Motion** - Animations
-- **React Router** - Client-side routing
-- **Axios** - HTTP client
-- **Lucide React** - Icons
-- **Leaflet** - Interactive maps
+## 🏗️ Architecture Overview
 
-## 📁 Project Structure
+```mermaid
+graph TD
+    Client["React 18 + Vite (TypeScript + Tailwind CSS)"]
+    CmdK["Cmd+K Command Palette / Global Search"]
+    AuthCtx["Auth Context (JWT + LocalStorage)"]
+    LeafletMap["Leaflet Campus Map Engine"]
 
+    Client --> CmdK
+    Client --> AuthCtx
+    Client --> LeafletMap
+
+    Gateway["Spring Boot 3 REST API (/api)"]
+    Client -->|Axios HTTP + Bearer Token| Gateway
+
+    SecFilter["Spring Security 6 (JWT Auth Filter)"]
+    Gateway --> SecFilter
+
+    subgraph "Core Domain Services"
+        AuthSvc["AuthService & UserDetailsService"]
+        CampusSvc["University / Building / Room Service"]
+        FacultySvc["Faculty & Timetable Service"]
+        FoodSvc["FoodFacility & Menu Service"]
+        EventSvc["Event & Registration Service"]
+        MaintSvc["Maintenance & Issue Report Service"]
+        NoticeSvc["Announcement Service"]
+        SearchSvc["Omnisearch Unified Aggregator"]
+        AdminSvc["Admin Console & Telemetry Service"]
+    end
+
+    SecFilter --> AuthSvc
+    Gateway --> CampusSvc
+    Gateway --> FacultySvc
+    Gateway --> FoodSvc
+    Gateway --> EventSvc
+    Gateway --> MaintSvc
+    Gateway --> NoticeSvc
+    Gateway --> SearchSvc
+    Gateway --> AdminSvc
+
+    subgraph "Persistence"
+        MySQL[("MySQL 8.0+ Database")]
+        Seeder["Idempotent DataSeeder (CommandLineRunner)"]
+    end
+
+    AuthSvc --> MySQL
+    CampusSvc --> MySQL
+    FacultySvc --> MySQL
+    FoodSvc --> MySQL
+    EventSvc --> MySQL
+    MaintSvc --> MySQL
+    NoticeSvc --> MySQL
+    AdminSvc --> MySQL
+    Seeder -.->|On First Boot| MySQL
 ```
-Uni-Yarr/
-├── backend/                 # Spring Boot backend
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/com/uniyar/
-│   │   │   │   ├── controller/     # REST controllers
-│   │   │   │   ├── dto/           # Data Transfer Objects
-│   │   │   │   ├── exception/     # Exception handling
-│   │   │   │   └── UniYaarApplication.java
-│   │   │   └── resources/
-│   │   │       └── application.yml
-│   │   └── test/
-│   └── pom.xml
-├── frontend/                # React frontend
-│   ├── src/
-│   │   ├── api/            # API client
-│   │   ├── components/     # React components
-│   │   │   └── layout/     # Layout components
-│   │   ├── App.tsx
-│   │   └── main.tsx
-│   ├── package.json
-│   └── vite.config.ts
-└── README.md
-```
 
-## 🚀 Getting Started
+---
+
+## 🚀 Quick Start Guide
 
 ### Prerequisites
+- **Java 21** (`openjdk@21`)
+- **Maven 3.8+**
+- **Node.js 18+** & `npm`
+- **MySQL 8.0+** running locally on port 3306
 
-- **Java 21** (OpenJDK recommended)
-- **Node.js 18+** and npm
-- **MySQL 8.0+**
+### 1. Database Configuration
+By default, the backend connects to MySQL at `localhost:3306/uniyaar_db` with user `root` and password `password`.
+Create the database:
+```sql
+CREATE DATABASE IF NOT EXISTS uniyaar_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+*(Or customize credentials in `backend/src/main/resources/application.yml`)*
 
-### Backend Setup
+### 2. Backend Setup & Startup
+```bash
+cd backend
+export JAVA_HOME=/opt/homebrew/opt/openjdk@21
+export PATH="$JAVA_HOME/bin:$PATH"
 
-1. Ensure MySQL is running locally
-2. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
-3. Build and run:
-   ```bash
-   export JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home
-   ./mvnw spring-boot:run
-   ```
-4. The backend will start on `http://localhost:8080`
-5. Test the health endpoint: `GET /api/health`
+# Run tests & verify compilation
+mvn test-compile
 
-### Frontend Setup
+# Start the Spring Boot application
+mvn spring-boot:run
+```
+> **Auto-Seeding**: On initial boot, `DataSeeder.java` automatically populates the database with buildings, rooms, timetables, mess menus, hackathons, and demo users.
 
-1. Navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-4. The frontend will start on `http://localhost:3000`
+Backend starts on: `http://localhost:8080` (API base: `http://localhost:8080/api`)
 
-## 📡 API Endpoints
+### 3. Frontend Setup & Startup
+```bash
+cd frontend
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/health` | GET | Health check endpoint |
-| `/api/` | GET | Root welcome endpoint |
+# Install dependencies
+npm install
 
-### Response Format
+# Start Vite development server
+npm run dev
+```
+Frontend runs on: `http://localhost:3000`
 
-All API responses follow a standardized format:
+---
 
+## 🔑 Pre-Seeded Demo Accounts
+
+The database comes pre-loaded with authentic credentials across all roles:
+
+| Role | Email Address | Password | Permissions & Access |
+|---|---|---|---|
+| **Admin** | `admin@uniyaar.edu` | `Admin@123` | Full Admin Console, Metrics, Incident Resolution, Outage Broadcast, Role Assignment |
+| **Staff** | `facilities@uniyaar.edu` | `Staff@123` | Operations Desk, Maintenance Updates, Ticket Triage, Notice Posting |
+| **Faculty** | `ramesh.sharma@uniyaar.edu` | `Faculty@123` | Faculty profile, timetable view, office hours, general campus features |
+| **Faculty (AI)** | `ananya.gupta@uniyaar.edu` | `Faculty@123` | AI Research profile, sandbox lab schedule, workshops |
+| **Student** | `student@uniyaar.edu` | `Student@123` | Issue reporting & upvoting, Event RSVPs, Bookmarking, Omnisearch |
+
+---
+
+## ⌨️ Global Shortcuts
+
+| Shortcut | Action | Description |
+|---|---|---|
+| `Cmd + K` (Mac) / `Ctrl + K` (Win/Linux) | **Open Omnisearch** | Instant universal spotlight search across all campus entities |
+| `↑` / `↓` | **Navigate Results** | Seamless keyboard navigation across search results |
+| `Enter` | **Select Item** | Navigate directly to the selected building, room, faculty, or event |
+| `Esc` | **Close Palette** | Dismiss search modal |
+
+---
+
+## 📡 REST API Reference
+
+All responses follow the unified response format:
 ```json
 {
-  "timestamp": "2026-09-23T02:00:00",
+  "timestamp": "2026-09-23T12:00:00",
   "success": true,
   "status": 200,
-  "message": "Request successful",
+  "message": "Operation successful",
   "data": { ... }
 }
 ```
 
-## 🎨 Design System
+### Authentication (`/api/auth`)
+- `POST /api/auth/register` — Register student or faculty account.
+- `POST /api/auth/login` — Authenticate and receive signed JWT token.
+- `GET /api/auth/me` — Retrieve current authenticated user profile.
 
-UniYaar uses a modern, Gen-Z friendly design with:
-- **Primary Color**: Saffron/Amber (#f59e0b)
-- **Accent Color**: Deep Orange (#ea580c)
-- **Background**: Deep Slate (#0f172a)
-- **Success**: Emerald (#10b981)
+### Campus Spatial Hierarchy & Maps (`/api/buildings`, `/api/departments`, `/api/map`)
+- `GET /api/buildings` — List all campus buildings with GPS coordinates and floor counts.
+- `GET /api/buildings/{id}` — Get building details including all floors and rooms.
+- `GET /api/buildings/{id}/floors/{floorId}/rooms` — List rooms on a specific floor.
+- `GET /api/departments` — List academic departments.
+- `GET /api/map/markers` — Aggregated coordinates for map overlay (buildings, dining, amenities).
 
-## 📋 Roadmap
+### Faculty & Timetables (`/api/faculty`)
+- `GET /api/faculty` — Filter faculty by department, query, or designation.
+- `GET /api/faculty/{id}` — Faculty profile and office room location.
+- `GET /api/faculty/{id}/timetables` — Weekly scheduled timetable slots.
 
-- [x] **Phase 1**: Project Architecture & Monorepo Foundation
-- [ ] **Phase 2**: Authentication & Role-Based Access Control
-- [ ] **Phase 3**: Campus Spatial Hierarchy & Location APIs
-- [ ] **Phase 4**: Interactive Campus Map & Navigation Engine
-- [ ] **Phase 5**: Faculty Finder & Scheduled Timetables
-- [ ] **Phase 6**: Food & Mess Module
-- [ ] **Phase 7**: Events & Hackathons Hub
-- [ ] **Phase 8**: Facility Maintenance & Issue Reporting Engine
-- [ ] **Phase 9**: Announcements & In-App Notification Center
-- [ ] **Phase 10**: Global UniYaar Search & Personal Bookmarks
-- [ ] **Phase 11**: Enterprise Admin Dashboard & Management Console
-- [ ] **Phase 12**: Production Seeding, Verification & Polishing
+### Dining & Mess (`/api/food`)
+- `GET /api/food/facilities` — List student messes, canteens, and cafes.
+- `GET /api/food/facilities/{id}/menu/today` — Daily menu categorized by meal type.
 
-## 📝 License
+### Events & Hackathons (`/api/events`)
+- `GET /api/events` — Discover upcoming and live campus events and hackathons.
+- `GET /api/events/{id}` — Event details, venue, and registration counts.
+- `POST /api/events/{id}/rsvp` — One-click RSVP registration for authenticated users.
 
-This project is built for educational and demonstration purposes.
+### Maintenance & Community Issue Desk (`/api/maintenance`, `/api/issues`)
+- `GET /api/maintenance/active` — Active facility outages with detour recommendations.
+- `GET /api/issues` — Community issue reports filtered by status and category.
+- `POST /api/issues` — Submit new maintenance issue with building/room details.
+- `POST /api/issues/{id}/upvote` — Upvote an existing community issue to escalate priority.
+
+### Announcements & Notices (`/api/announcements`)
+- `GET /api/announcements` — List broadcast circulars with priority/audience filters.
+- `GET /api/announcements/emergency` — Urgent emergency notices for global banner ticker.
+
+### Global Omnisearch & Bookmarks (`/api/search`, `/api/bookmarks`)
+- `GET /api/search?q={query}` — Multi-domain aggregator across all 7 entities.
+- `GET /api/bookmarks` — Retrieve user's personal bookmarks.
+- `POST /api/bookmarks` — Add entity to personal bookmarks.
+- `DELETE /api/bookmarks/{id}` — Remove bookmark.
+
+### Admin Operations Console (`/api/admin`)
+- `GET /api/admin/metrics` — Telemetry statistics (active issues, RSVPs, outage count).
+- `PUT /api/admin/issues/{id}/status` — Update issue status with resolution notes (`ROLE_STAFF`, `ROLE_ADMIN`).
+- `POST /api/admin/maintenance` — Publish new facility outage advisory (`ROLE_STAFF`, `ROLE_ADMIN`).
+- `GET /api/admin/users` — List user roster (`ROLE_ADMIN`).
+- `PUT /api/admin/users/{id}/role` — Promote or modify user role (`ROLE_ADMIN`).
 
 ---
 
-Built with ❤️ for students. **UniYaar - Apni Uni. Apna Yaar.**
+## 🏆 Project Completion & Roadmap
+
+| Phase | Milestone | Status |
+|:---:|---|:---:|
+| 1 | **Project Architecture & Monorepo Foundation** | ✅ Complete |
+| 2 | **Authentication & Role-Based Access Control (RBAC)** | ✅ Complete |
+| 3 | **Campus Spatial Hierarchy & Location Directory** | ✅ Complete |
+| 4 | **Interactive Campus Map & Navigation Engine** | ✅ Complete |
+| 5 | **Faculty Finder & Scheduled Timetables** | ✅ Complete |
+| 6 | **Food & Mess Explorer with Dietary Tags** | ✅ Complete |
+| 7 | **Events & Hackathons Hub with RSVP System** | ✅ Complete |
+| 8 | **Facility Maintenance & Community Issue Reporting Desk** | ✅ Complete |
+| 9 | **Campus Notice Board & Emergency Broadcast Center** | ✅ Complete |
+| 10 | **Global Omnisearch (Cmd+K) & Personal Bookmarks** | ✅ Complete |
+| 11 | **Enterprise Admin Dashboard & Incident Governance Console** | ✅ Complete |
+| 12 | **Production Data Seeder, Verification & Launch Documentation** | ✅ Complete |
+
+---
+
+## 📝 License
+Built with ❤️ for university students everywhere.  
+**UniYaar — Apni Uni. Apna Yaar.**
