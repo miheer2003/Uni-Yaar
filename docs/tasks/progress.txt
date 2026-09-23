@@ -12,3 +12,5 @@ Completed: Phase 6 Plan 01 - Backend Food Facility, Menu, MenuItem Entities, Rep
 Completed: Phase 6 Plan 02 - Frontend Food & Mess Explorer, Daily Meal View, Dietary Badges, and Map Navigation
 Completed: Phase 7 Plan 01 - Backend Event Entities, Repositories, Services, and REST Controller Endpoints
 Completed: Phase 7 Plan 02 - Frontend Events & Hackathons Hub, Category & Status Filters, RSVP Modal, and Venue Navigation
+Completed: Phase 8 Plan 01 - Backend Facility Maintenance & Community Issue Reporting Engine, Entities, Repositories, and REST Endpoints
+Completed: Phase 8 Plan 02 - Frontend Facility Status Alerts, Alternative Workarounds, Issue Submission Modal, and Upvote Escalation Desk

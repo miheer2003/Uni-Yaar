@@ -206,3 +206,43 @@ export const eventApi = {
   register: (id: number) =>
     client.post<ApiResponse<import('../types/event').EventItem>>(`/events/${id}/register`),
 };
+
+// Facility & Issue Reporting API
+export const facilityApi = {
+  getMaintenanceNotices: (buildingId?: number) => {
+    const params = new URLSearchParams();
+    if (buildingId) params.append('buildingId', buildingId.toString());
+    return client.get<ApiResponse<import('../types/facility').MaintenanceNotice[]>>(
+      `/facilities/maintenance?${params.toString()}`
+    );
+  },
+
+  getNoticeById: (id: number) =>
+    client.get<ApiResponse<import('../types/facility').MaintenanceNotice>>(`/facilities/maintenance/${id}`),
+
+  getReports: (category?: string, status?: string, buildingId?: number) => {
+    const params = new URLSearchParams();
+    if (category) params.append('category', category);
+    if (status) params.append('status', status);
+    if (buildingId) params.append('buildingId', buildingId.toString());
+    return client.get<ApiResponse<import('../types/facility').IssueReport[]>>(
+      `/facilities/reports?${params.toString()}`
+    );
+  },
+
+  getReportById: (id: number) =>
+    client.get<ApiResponse<import('../types/facility').IssueReport>>(`/facilities/reports/${id}`),
+
+  submitReport: (data: import('../types/facility').IssueReportRequest) =>
+    client.post<ApiResponse<import('../types/facility').IssueReport>>('/facilities/reports', data),
+
+  upvoteReport: (id: number) =>
+    client.post<ApiResponse<import('../types/facility').IssueReport>>(`/facilities/reports/${id}/upvote`),
+
+  updateStatus: (id: number, status: string, staffNotes?: string) =>
+    client.patch<ApiResponse<import('../types/facility').IssueReport>>(`/facilities/reports/${id}/status`, {
+      status,
+      staffNotes,
+    }),
+};
+

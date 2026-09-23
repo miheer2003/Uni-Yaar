@@ -13,6 +13,7 @@ import FacultyFinder from './pages/FacultyFinder';
 import FacultyDetail from './pages/FacultyDetail';
 import FoodMess from './pages/FoodMess';
 import { Events } from './pages/Events';
+import { Facilities } from './pages/Facilities';
 import { PublicRoute } from './components/auth/ProtectedRoute';
 import { healthApi } from './api/client';
 
@@ -108,7 +109,7 @@ function App() {
           <Route path="/faculty/:id" element={<FacultyDetail />} />
           <Route path="/food" element={<FoodMess />} />
           <Route path="/events" element={<Events />} />
-          <Route path="/facilities" element={<div className="p-8 text-center text-slate-400">Facilities - Coming Soon</div>} />
+          <Route path="/facilities" element={<Facilities />} />
         </Routes>
       </main>
       <Footer />
