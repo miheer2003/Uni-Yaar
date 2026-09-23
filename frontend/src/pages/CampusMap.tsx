@@ -12,6 +12,7 @@ import {
   Navigation, 
   X, 
   ArrowRight,
+  ArrowLeft,
   Clock,
   Footprints,
   RotateCcw
@@ -110,6 +111,17 @@ export default function CampusMap() {
   useEffect(() => {
     loadMarkers();
   }, [selectedCategory]);
+
+  useEffect(() => {
+    // Prevent backspace from zooming/scrolling map
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Backspace' && e.target === document.body) {
+        e.preventDefault();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   useEffect(() => {
     const latParam = searchParams.get('lat');
@@ -250,7 +262,7 @@ export default function CampusMap() {
   return (
     <div className="relative w-full h-[calc(100vh-4rem)] bg-slate-950 overflow-hidden flex flex-col">
       {/* Category Pills Overlay */}
-      <div className="absolute top-4 left-4 right-4 z-[400] flex items-center justify-between pointer-events-none">
+      <div className="absolute top-4 left-4 right-4 z-[1000] flex items-center justify-between pointer-events-none">
         <div className="flex items-center space-x-2 bg-slate-950/80 backdrop-blur-md p-1.5 rounded-2xl border border-slate-800 shadow-2xl pointer-events-auto overflow-x-auto scrollbar-none">
           {categories.map((cat) => {
             const isSelected = selectedCategory === cat.value;
@@ -270,6 +282,14 @@ export default function CampusMap() {
               </button>
             );
           })}
+          
+          <Link
+            to="/"
+            className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all ml-2 border-l border-slate-700 pl-4"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Back</span>
+          </Link>
         </div>
 
         {activeRoute && (
@@ -289,6 +309,7 @@ export default function CampusMap() {
           center={mapCenter}
           zoom={mapZoom}
           scrollWheelZoom={true}
+          keyboard={false}
           style={{ width: '100%', height: '100%', background: '#090d16' }}
         >
           <MapFlyTo center={mapCenter} zoom={mapZoom} />
@@ -366,7 +387,7 @@ export default function CampusMap() {
             initial={{ y: 200, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 200, opacity: 0 }}
-            className="absolute bottom-6 left-4 right-4 sm:left-auto sm:right-6 sm:w-96 z-[400] bg-slate-900/95 backdrop-blur-xl border border-slate-800 rounded-3xl p-6 shadow-2xl"
+            className="absolute bottom-6 left-4 right-4 sm:left-auto sm:right-6 sm:w-96 z-[1000] bg-slate-900/95 backdrop-blur-xl border border-slate-800 rounded-3xl p-6 shadow-2xl"
           >
             <div className="flex items-start justify-between">
               <div>
@@ -432,7 +453,7 @@ export default function CampusMap() {
             initial={{ y: -80, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -80, opacity: 0 }}
-            className="absolute top-20 left-4 right-4 sm:left-6 sm:w-96 z-[400] bg-slate-900/95 backdrop-blur-xl border border-primary-500/40 rounded-3xl p-5 shadow-2xl"
+            className="absolute top-20 left-4 right-4 sm:left-6 sm:w-96 z-[1000] bg-slate-900/95 backdrop-blur-xl border border-primary-500/40 rounded-3xl p-5 shadow-2xl"
           >
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center space-x-2">

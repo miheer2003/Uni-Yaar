@@ -296,11 +296,12 @@ export const Facilities: React.FC = () => {
               </div>
             ) : (
               <div className="space-y-4">
-                {notices.map((notice) => (
+                {notices.map((notice, idx) => (
                   <motion.div
                     key={notice.id}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: Math.min(idx * 0.05, 0.3) }}
                     className="bg-slate-900/90 border border-amber-500/20 hover:border-amber-500/40 rounded-3xl p-6 sm:p-7 shadow-xl relative overflow-hidden transition-all duration-200"
                   >
                     <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
@@ -461,13 +462,14 @@ export const Facilities: React.FC = () => {
               </div>
             ) : (
               <div className="space-y-4">
-                {reports.map((report) => {
+                {reports.map((report, idx) => {
                   const isUpvoted = upvotedIssues[report.id];
                   return (
                     <motion.div
                       key={report.id}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: Math.min(idx * 0.05, 0.3) }}
                       className="bg-slate-900/80 border border-slate-800 hover:border-slate-700/80 rounded-3xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 transition-all shadow-lg"
                     >
                       <div className="flex items-start space-x-4 flex-1">

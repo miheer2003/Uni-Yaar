@@ -18,7 +18,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/facilities")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 public class FacilityController {
 
     private final FacilityService facilityService;

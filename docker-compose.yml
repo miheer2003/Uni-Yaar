@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: uniyaar_db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-super_secret_root}
+      MYSQL_DATABASE: uniyaar
+      MYSQL_USER: uniyaar_user
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-uniyaar_secret}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - uniyaar-network
+    healthcheck:
+      test: ["CMD", "mysql", "-h", "127.0.0.1", "-u", "uniyaar_user", "-puniyaar_secret", "-D", "uniyaar", "-e", "SELECT 1"]
+      timeout: 20s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: uniyaar_backend
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/uniyaar?createDatabaseIfNotExist=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=uniyaar_user
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD:-uniyaar_secret}
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - uniyaar-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: uniyaar_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - uniyaar-network
+
+networks:
+  uniyaar-network:
+    driver: bridge
+
+volumes:
+  mysql_data:

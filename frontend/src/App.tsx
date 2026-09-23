@@ -1,5 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { MapPin, Users, UtensilsCrossed, Calendar, Wrench, Sparkles, ChevronRight, CheckCircle2, AlertCircle, LucideIcon } from 'lucide-react';
 import Navbar from './components/layout/Navbar';
@@ -109,27 +109,44 @@ function HomePage() {
   );
 }
 
+function PageTransition({ children }: { children: React.ReactNode }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
+      className="h-full"
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 function App() {
+  const location = useLocation();
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col">
       <CommandPalette />
       <Navbar />
-      <main className="flex-1 pt-16">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
-          <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
-          <Route path="/buildings" element={<Buildings />} />
-          <Route path="/buildings/:id" element={<BuildingDetail />} />
-          <Route path="/map" element={<CampusMap />} />
-          <Route path="/faculty" element={<FacultyFinder />} />
-          <Route path="/faculty/:id" element={<FacultyDetail />} />
-          <Route path="/food" element={<FoodMess />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/facilities" element={<Facilities />} />
-          <Route path="/announcements" element={<Announcements />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-        </Routes>
+      <main className="flex-1 pt-16 h-full relative">
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<PageTransition><HomePage /></PageTransition>} />
+            <Route path="/login" element={<PageTransition><PublicRoute><Login /></PublicRoute></PageTransition>} />
+            <Route path="/register" element={<PageTransition><PublicRoute><Register /></PublicRoute></PageTransition>} />
+            <Route path="/buildings" element={<PageTransition><Buildings /></PageTransition>} />
+            <Route path="/buildings/:id" element={<PageTransition><BuildingDetail /></PageTransition>} />
+            <Route path="/map" element={<PageTransition><CampusMap /></PageTransition>} />
+            <Route path="/faculty" element={<PageTransition><FacultyFinder /></PageTransition>} />
+            <Route path="/faculty/:id" element={<PageTransition><FacultyDetail /></PageTransition>} />
+            <Route path="/food" element={<PageTransition><FoodMess /></PageTransition>} />
+            <Route path="/events" element={<PageTransition><Events /></PageTransition>} />
+            <Route path="/facilities" element={<PageTransition><Facilities /></PageTransition>} />
+            <Route path="/announcements" element={<PageTransition><Announcements /></PageTransition>} />
+            <Route path="/admin" element={<PageTransition><AdminDashboard /></PageTransition>} />
+          </Routes>
+        </AnimatePresence>
       </main>
       <Footer />
     </div>

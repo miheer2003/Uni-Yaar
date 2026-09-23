@@ -17,6 +17,7 @@ export default function Register() {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<{
     fullName: string;
@@ -29,6 +30,7 @@ export default function Register() {
   });
 
   const password = watch('password');
+  const currentRole = watch('role');
 
   const onSubmit = async (data: {
     fullName: string;
@@ -240,11 +242,11 @@ export default function Register() {
                     <button
                       key={option.value}
                       type="button"
-                      onClick={() => register('role').onChange({ target: { value: option.value } })}
+                      onClick={() => setValue('role', option.value, { shouldValidate: true })}
                       className={clsx(
                         'relative p-4 rounded-xl border-2 text-center transition-all duration-200',
                         'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-slate-950',
-                        watch('role') === option.value
+                        currentRole === option.value
                           ? 'border-primary-500 bg-primary-500/10'
                           : 'border-slate-700 hover:border-slate-600'
                       )}

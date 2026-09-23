@@ -48,9 +48,7 @@ public class DataSeeder implements CommandLineRunner {
         University uni = universityRepository.save(University.builder()
                 .name("Apex Institute of Technology")
                 .address("Survey No. 42, Hinjawadi Tech Park Road, Pune, Maharashtra 411057")
-                .contactEmail("contact@ait.uniyaar.edu")
-                .phone("+91 20 6712 3400")
-                .websiteUrl("https://ait.uniyaar.edu")
+                .description("Premier multi-disciplinary engineering and technology institute with state-of-the-art labs, modern campus, and vibrant student community.")
                 .latitude(18.5204)
                 .longitude(73.8567)
                 .build());
