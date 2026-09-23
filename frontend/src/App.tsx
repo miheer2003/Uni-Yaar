@@ -15,6 +15,7 @@ import FoodMess from './pages/FoodMess';
 import { Events } from './pages/Events';
 import { Facilities } from './pages/Facilities';
 import { Announcements } from './pages/Announcements';
+import { CommandPalette } from './components/search/CommandPalette';
 import { PublicRoute } from './components/auth/ProtectedRoute';
 import { healthApi } from './api/client';
 
@@ -58,9 +59,22 @@ function HomePage() {
               <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="btn-secondary flex items-center space-x-2 text-lg"><span>Learn More</span><ChevronRight className="w-5 h-5" /></motion.button>
             </div>
             <div className="max-w-2xl mx-auto">
-              <div className="relative">
-                <input type="text" placeholder="Search buildings, faculty, events, food..." className="input text-lg" />
-                <button className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-slate-950 font-semibold rounded-xl transition-colors">Search</button>
+              <div
+                onClick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
+                className="relative cursor-pointer"
+              >
+                <input
+                  type="text"
+                  readOnly
+                  placeholder="Search buildings, faculty, events, food..."
+                  className="input text-lg cursor-pointer"
+                />
+                <button
+                  type="button"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-slate-950 font-semibold rounded-xl transition-colors"
+                >
+                  Search
+                </button>
               </div>
               <p className="text-slate-500 text-sm mt-3">Press <kbd className="px-2 py-0.5 bg-slate-800 rounded text-slate-400">Cmd+K</kbd> for quick search</p>
             </div>
@@ -97,6 +111,7 @@ function HomePage() {
 function App() {
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col">
+      <CommandPalette />
       <Navbar />
       <main className="flex-1 pt-16">
         <Routes>

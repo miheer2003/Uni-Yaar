@@ -1,6 +1,7 @@
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/UniYaarApplication.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/AnnouncementController.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/AuthController.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/BookmarkController.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/CampusController.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/EventController.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/FacilityController.java
@@ -8,6 +9,7 @@
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/FoodController.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/HealthController.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/MapController.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/controller/SearchController.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/ApiResponse.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/announcement/AnnouncementResponse.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/auth/AuthRequest.java
@@ -26,10 +28,16 @@
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/faculty/TimetableResponse.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/food/FoodFacilityResponse.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/food/MenuResponse.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/search/BookmarkRequest.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/search/BookmarkResponse.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/search/SearchItemType.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/search/SearchResponse.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/dto/search/SearchResultItem.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/entity/Announcement.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/entity/AnnouncementAudience.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/entity/AnnouncementCategory.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/entity/AnnouncementPriority.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/entity/Bookmark.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/entity/Building.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/entity/Department.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/entity/Event.java
@@ -58,6 +66,7 @@
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/exception/GlobalExceptionHandler.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/exception/ResourceNotFoundException.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/repository/AnnouncementRepository.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/repository/BookmarkRepository.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/repository/BuildingRepository.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/repository/DepartmentRepository.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/repository/EventRepository.java
@@ -76,10 +85,12 @@
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/security/JwtTokenProvider.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/security/SecurityConfig.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/service/AnnouncementService.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/service/BookmarkService.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/service/CampusService.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/service/EventService.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/service/FacilityService.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/service/FacultyService.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/service/FoodService.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/service/MapService.java
+/Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/service/SearchService.java
 /Users/miheer/Desktop/Projects/Uni-Yarr/backend/src/main/java/com/uniyar/service/UserService.java

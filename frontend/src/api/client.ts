@@ -266,4 +266,25 @@ export const announcementApi = {
     client.get<ApiResponse<import('../types/announcement').Announcement>>(`/announcements/${id}`),
 };
 
+// Search API
+export const searchApi = {
+  query: (q: string) => {
+    const params = new URLSearchParams();
+    if (q) params.append('q', q);
+    return client.get<ApiResponse<import('../types/search').SearchResponse>>(`/search?${params.toString()}`);
+  },
+};
+
+// Bookmark API
+export const bookmarkApi = {
+  getAll: () =>
+    client.get<ApiResponse<import('../types/search').Bookmark[]>>('/bookmarks'),
+
+  create: (data: import('../types/search').BookmarkRequest) =>
+    client.post<ApiResponse<import('../types/search').Bookmark>>('/bookmarks', data),
+
+  delete: (id: number) =>
+    client.delete<ApiResponse<void>>(`/bookmarks/${id}`),
+};
+
 

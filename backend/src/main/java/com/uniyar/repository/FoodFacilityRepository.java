@@ -8,4 +8,5 @@ import java.util.List;
 @Repository
 public interface FoodFacilityRepository extends JpaRepository<FoodFacility, Long> {
     List<FoodFacility> findByBuildingId(Long buildingId);
+    List<FoodFacility> findByNameContainingIgnoreCase(String name);
 }

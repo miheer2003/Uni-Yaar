@@ -107,7 +107,10 @@ export default function Navbar() {
 
           {/* Search & Auth */}
           <div className="hidden md:flex items-center space-x-3">
-            <button className="flex items-center space-x-2 px-4 py-2 bg-slate-800/50 hover:bg-slate-800 border border-slate-700 rounded-lg text-slate-400 text-sm transition-all duration-200">
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
+              className="flex items-center space-x-2 px-4 py-2 bg-slate-800/50 hover:bg-slate-800 border border-slate-700 rounded-lg text-slate-400 text-sm transition-all duration-200"
+            >
               <Search className="w-4 h-4" />
               <span>Search campus...</span>
               <kbd className="hidden sm:inline-flex px-2 py-0.5 text-xs bg-slate-700 rounded">⌘K</kbd>

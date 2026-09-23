@@ -16,3 +16,5 @@ Completed: Phase 8 Plan 01 - Backend Facility Maintenance & Community Issue Repo
 Completed: Phase 8 Plan 02 - Frontend Facility Status Alerts, Alternative Workarounds, Issue Submission Modal, and Upvote Escalation Desk
 Completed: Phase 9 Plan 01 - Backend Announcement Entities, Repositories, Priority & Audience Filters, and REST Endpoints
 Completed: Phase 9 Plan 02 - Frontend Campus Notice Board, Emergency Broadcast Ticker, Pinned Notices, and Circular Detail Viewer
+Completed: Phase 10 Plan 01 - Backend Unified Omnisearch Aggregator across 7 Campus Domains and Bookmarks API
+Completed: Phase 10 Plan 02 - Frontend Spotlight Command Palette (Cmd+K), Keyboard Navigation, Global Triggers, and Quick Bookmarks

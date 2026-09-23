@@ -30,4 +30,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             @Param("status") EventStatus status,
             @Param("fromTime") LocalDateTime fromTime
     );
+
+    List<Event> findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String title, String description);
 }
