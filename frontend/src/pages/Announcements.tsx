@@ -520,7 +520,7 @@ const PriorityPill: React.FC<{ priority: AnnouncementPriority }> = ({ priority }
   switch (priority) {
     case 'URGENT':
       return (
-        <span className="px-2.5 py-0.5 rounded-lg text-[11px] font-black bg-[#F86B7E]/10 text-[#D7344A] border border-[#F86B7E]/25 flex items-center space-x-1">
+        <span className="px-2.5 py-0.5 rounded-lg text-[11px] font-black bg-[#F86B7E]/10 text-[#C22336] border border-[#F86B7E]/25 flex items-center space-x-1">
           <AlertOctagon className="w-3 h-3 stroke-[2.5]" />
           <span>URGENT</span>
         </span>

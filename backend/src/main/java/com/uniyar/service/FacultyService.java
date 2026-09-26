@@ -89,6 +89,9 @@ public class FacultyService {
         }
         Faculty faculty = facultyRepository.findById(request.getFacultyId())
                 .orElseThrow(() -> new ResourceNotFoundException("Faculty", "id", request.getFacultyId()));
+        if (caller.getRole() != UserRole.ROLE_ADMIN && !faculty.getUser().getId().equals(caller.getId())) {
+            throw new org.springframework.security.access.AccessDeniedException("You cannot reassign a timetable entry to another faculty.");
+        }
         Room room = roomRepository.findById(request.getRoomId())
                 .orElseThrow(() -> new ResourceNotFoundException("Room", "id", request.getRoomId()));
         entry.setFaculty(faculty); entry.setRoom(room); entry.setSubject(request.getSubject());
