@@ -47,10 +47,12 @@ const client: AxiosInstance = axios.create({
   },
 });
 
+export const getStoredToken = () => localStorage.getItem('token') || sessionStorage.getItem('token');
+
 // Request interceptor
 client.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = localStorage.getItem('token');
+    const token = getStoredToken();
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -72,6 +74,7 @@ client.interceptors.response.use(
       
       if (status === 401) {
         localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
         window.location.href = '/login';
       } else if (status === 403) {
         console.error('Access denied');
@@ -170,6 +173,19 @@ export const facultyApi = {
 
   getTimetable: (id: number) =>
     client.get<ApiResponse<import('../types/faculty').TimetableEntry[]>>(`/faculty/${id}/timetable`),
+
+  getMyProfile: () => client.get<ApiResponse<import('../types/faculty').Faculty>>('/faculty/me'),
+  updateMyProfile: (data: { designation: string; subjects?: string; avatarUrl?: string; bio?: string }) =>
+    client.put<ApiResponse<import('../types/faculty').Faculty>>('/faculty/me', data),
+  createTimetable: (data: { facultyId: number; roomId: number; subject: string; dayOfWeek: string; startTime: string; endTime: string }) =>
+    client.post<ApiResponse<import('../types/faculty').TimetableEntry>>('/faculty/timetable', data),
+  updateTimetable: (id: number, data: { facultyId: number; roomId: number; subject: string; dayOfWeek: string; startTime: string; endTime: string }) =>
+    client.put<ApiResponse<import('../types/faculty').TimetableEntry>>(`/faculty/timetable/${id}`, data),
+  deleteTimetable: (id: number) => client.delete<ApiResponse<void>>(`/faculty/timetable/${id}`),
+  getMyTimetable: () => client.get<ApiResponse<import('../types/faculty').TimetableEntry[]>>('/faculty/me/timetable'),
+  createMyTimetable: (data: { roomId: number; subject: string; dayOfWeek: string; startTime: string; endTime: string }) =>
+    client.post<ApiResponse<import('../types/faculty').TimetableEntry>>('/faculty/me/timetable', data),
+  deleteMyTimetable: (id: number) => client.delete<ApiResponse<void>>(`/faculty/me/timetable/${id}`),
 };
 
 // Food API
@@ -205,6 +221,14 @@ export const eventApi = {
 
   register: (id: number) =>
     client.post<ApiResponse<import('../types/event').EventItem>>(`/events/${id}/register`),
+  deregister: (id: number) =>
+    client.delete<ApiResponse<import('../types/event').EventItem>>(`/events/${id}/register`),
+  create: (data: { title: string; description?: string; category: import('../types/event').EventCategory; startsAt: string; endsAt: string; locationName?: string; registrationUrl?: string; capacity?: number; roomId?: number }) =>
+    client.post<ApiResponse<import('../types/event').EventItem>>('/events', data),
+  update: (id: number, data: { title: string; description?: string; category: import('../types/event').EventCategory; startsAt: string; endsAt: string; locationName?: string; registrationUrl?: string; capacity?: number; roomId?: number }) =>
+    client.put<ApiResponse<import('../types/event').EventItem>>(`/events/${id}`, data),
+  delete: (id: number) =>
+    client.delete<ApiResponse<void>>(`/events/${id}`),
 };
 
 // Facility & Issue Reporting API
@@ -309,7 +333,21 @@ export const adminApi = {
 
   createAnnouncement: (data: Partial<import('../types/announcement').Announcement>) =>
     client.post<ApiResponse<import('../types/announcement').Announcement>>('/admin/announcements', data),
+
+  deleteAnnouncement: (id: number) =>
+    client.delete<ApiResponse<void>>(`/admin/announcements/${id}`),
+
+  deleteEvent: (id: number) =>
+    client.delete<ApiResponse<void>>(`/admin/events/${id}`),
 };
 
-
-
+// Food Staff Management API
+export const foodStaffApi = {
+  addMenuItem: (facilityId: number, item: { mealType: string; itemName: string; dietaryTag?: string; price?: number; description?: string }, date?: string) => {
+    const params = new URLSearchParams();
+    if (date) params.append('date', date);
+    return client.post<ApiResponse<import('../types/food').Menu>>(`/food-facilities/${facilityId}/menu/items?${params.toString()}`, item);
+  },
+  deleteMenuItem: (itemId: number) =>
+    client.delete<ApiResponse<void>>(`/food-facilities/menu/items/${itemId}`),
+};

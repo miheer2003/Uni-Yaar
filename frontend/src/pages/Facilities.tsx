@@ -198,15 +198,15 @@ export const Facilities: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 py-10 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#DFDFE0] text-[#18181B] py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-8 border-b border-slate-800">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-8 border-b border-[#DFDFE0]">
           <div>
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center space-x-2 px-3 py-1 bg-amber-500/10 border border-amber-500/20 rounded-full text-amber-400 text-xs font-semibold uppercase tracking-wider mb-4"
+              className="inline-flex items-center space-x-2 px-3.5 py-1 bg-[#FDFDFD] border border-[#DFDFE0] rounded-full text-[#776BFD] text-xs font-semibold uppercase tracking-wider mb-4 shadow-xs"
             >
               <Wrench className="w-3.5 h-3.5" />
               <span>Campus Infrastructure Desk</span>
@@ -221,7 +221,7 @@ export const Facilities: React.FC = () => {
             <motion.p
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-3 text-lg text-slate-400 max-w-2xl"
+              className="mt-3 text-lg text-[#636363] max-w-2xl font-medium"
             >
               Real-time maintenance notices, elevator/AC outages, alternative workarounds, and student problem escalation.
             </motion.p>
@@ -231,7 +231,7 @@ export const Facilities: React.FC = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setShowReportModal(true)}
-            className="px-6 py-4 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-400 hover:to-primary-500 text-slate-950 font-bold rounded-2xl shadow-xl shadow-primary-500/20 flex items-center justify-center space-x-2.5 shrink-0"
+            className="btn-primary flex items-center justify-center space-x-2.5 shrink-0"
           >
             <Plus className="w-5 h-5 stroke-[2.5]" />
             <span>Report a Campus Issue</span>
@@ -242,17 +242,17 @@ export const Facilities: React.FC = () => {
         <div className="flex items-center space-x-3 mb-8">
           <button
             onClick={() => setActiveTab('NOTICES')}
-            className={`flex items-center space-x-2.5 px-5 py-3 rounded-2xl text-sm font-bold transition-all ${
+            className={`flex items-center space-x-2.5 px-5 py-3 rounded-2xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === 'NOTICES'
-                ? 'bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/20'
-                : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-white'
+                ? 'bg-[#776BFD] text-white shadow-md shadow-[#776BFD]/25'
+                : 'bg-[#FDFDFD] border border-[#DFDFE0] text-[#636363] hover:text-[#18181B] hover:border-[#B6ADC3]'
             }`}
           >
             <AlertTriangle className="w-4 h-4" />
             <span>Active Maintenance Notices</span>
             <span
-              className={`px-2 py-0.5 rounded-full text-xs font-extrabold ${
-                activeTab === 'NOTICES' ? 'bg-slate-950/20 text-slate-950' : 'bg-slate-800 text-slate-300'
+              className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold ${
+                activeTab === 'NOTICES' ? 'bg-white/20 text-white' : 'bg-[#DFDFE0]/60 text-[#636363]'
               }`}
             >
               {notices.length}
@@ -261,17 +261,17 @@ export const Facilities: React.FC = () => {
 
           <button
             onClick={() => setActiveTab('REPORTS')}
-            className={`flex items-center space-x-2.5 px-5 py-3 rounded-2xl text-sm font-bold transition-all ${
+            className={`flex items-center space-x-2.5 px-5 py-3 rounded-2xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === 'REPORTS'
-                ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/20'
-                : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-white'
+                ? 'bg-[#776BFD] text-white shadow-md shadow-[#776BFD]/25'
+                : 'bg-[#FDFDFD] border border-[#DFDFE0] text-[#636363] hover:text-[#18181B] hover:border-[#B6ADC3]'
             }`}
           >
             <Wrench className="w-4 h-4" />
             <span>Community Issue Desk</span>
             <span
-              className={`px-2 py-0.5 rounded-full text-xs font-extrabold ${
-                activeTab === 'REPORTS' ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-300'
+              className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold ${
+                activeTab === 'REPORTS' ? 'bg-white/20 text-white' : 'bg-[#DFDFE0]/60 text-[#636363]'
               }`}
             >
               {reports.length}
@@ -285,14 +285,14 @@ export const Facilities: React.FC = () => {
             {loading ? (
               <div className="space-y-4">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="bg-slate-900 border border-slate-800 rounded-3xl p-6 h-36 animate-pulse" />
+                  <div key={i} className="bg-[#FDFDFD] border border-[#DFDFE0] rounded-3xl p-6 h-36 animate-pulse" />
                 ))}
               </div>
             ) : notices.length === 0 ? (
-              <div className="text-center py-16 bg-slate-900/40 border border-slate-800 rounded-3xl">
+              <div className="text-center py-16 bg-[#FDFDFD] border border-[#DFDFE0] rounded-3xl shadow-sm">
                 <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto mb-3" />
-                <h3 className="text-lg font-bold text-white mb-1">All Campus Facilities Operational</h3>
-                <p className="text-sm text-slate-400">No active closures or maintenance work reported right now.</p>
+                <h3 className="text-lg font-bold text-[#18181B] mb-1">All Campus Facilities Operational</h3>
+                <p className="text-sm text-[#636363]">No active closures or maintenance work reported right now.</p>
               </div>
             ) : (
               <div className="space-y-4">
@@ -302,7 +302,7 @@ export const Facilities: React.FC = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: Math.min(idx * 0.05, 0.3) }}
-                    className="bg-slate-900/90 border border-amber-500/20 hover:border-amber-500/40 rounded-3xl p-6 sm:p-7 shadow-xl relative overflow-hidden transition-all duration-200"
+                    className="bg-[#FDFDFD] border border-[#DFDFE0] hover:border-[#B6ADC3] rounded-3xl p-6 sm:p-7 shadow-[0_4px_25px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(119,107,253,0.08)] relative overflow-hidden transition-all duration-200"
                   >
                     <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                       <div className="max-w-3xl">
@@ -310,30 +310,30 @@ export const Facilities: React.FC = () => {
                         <div className="flex flex-wrap items-center gap-2 mb-3">
                           <FacilityStatusBadge status={notice.status} />
                           {notice.affectedAsset && (
-                            <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 border border-slate-700">
+                            <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold bg-[#DFDFE0]/40 text-[#636363] border border-[#DFDFE0]">
                               Asset: {notice.affectedAsset}
                             </span>
                           )}
-                          <div className="flex items-center space-x-1.5 text-xs text-slate-400 ml-1">
+                          <div className="flex items-center space-x-1.5 text-xs text-[#636363] ml-1">
                             <Clock className="w-3.5 h-3.5 text-amber-400" />
                             <span>ETA: {notice.estimatedResolutionTime || 'In Progress'}</span>
                           </div>
                         </div>
 
                         {/* Title & Description */}
-                        <h3 className="text-xl sm:text-2xl font-extrabold text-white mb-2">
+                        <h3 className="text-xl sm:text-2xl font-black text-[#18181B] mb-2">
                           {notice.title}
                         </h3>
-                        <p className="text-sm text-slate-300 mb-4 leading-relaxed">
+                        <p className="text-sm text-[#636363] mb-4 leading-relaxed font-medium">
                           {notice.description}
                         </p>
 
                         {/* Alternative Workaround Box */}
                         {notice.alternativeSuggestion && (
-                          <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-200 text-xs flex items-start space-x-3">
-                            <ArrowRight className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                          <div className="p-4 rounded-2xl bg-[#F86B7E]/10 border border-[#F86B7E]/20 text-[#18181B] text-xs flex items-start space-x-3">
+                            <ArrowRight className="w-4 h-4 text-[#F86B7E] shrink-0 mt-0.5" />
                             <div>
-                              <span className="font-bold text-amber-300">Recommended Alternative: </span>
+                              <span className="font-bold text-[#F86B7E]">Recommended Alternative: </span>
                               <span>{notice.alternativeSuggestion}</span>
                             </div>
                           </div>
@@ -341,14 +341,14 @@ export const Facilities: React.FC = () => {
                       </div>
 
                       {/* Location & Navigation Actions */}
-                      <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-end justify-between gap-3 shrink-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-slate-800">
+                      <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-end justify-between gap-3 shrink-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-[#DFDFE0]">
                         <div className="text-left lg:text-right">
                           <div className="text-xs text-slate-500 font-semibold uppercase">Location</div>
-                          <div className="text-sm font-bold text-white">
+                          <div className="text-sm font-bold text-[#18181B]">
                             {notice.buildingName || 'Campus Facility'}
                           </div>
                           {notice.floorNumber !== undefined && (
-                            <div className="text-xs text-slate-400">
+                            <div className="text-xs text-[#636363]">
                               Floor {notice.floorNumber} {notice.roomNumber ? `• Room ${notice.roomNumber}` : ''}
                             </div>
                           )}
@@ -362,7 +362,7 @@ export const Facilities: React.FC = () => {
                               navigate('/map');
                             }
                           }}
-                          className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold transition-all flex items-center space-x-2 border border-slate-700"
+                          className="btn-secondary flex items-center space-x-2 text-xs py-2.5 px-4"
                         >
                           <MapPin className="w-3.5 h-3.5 text-rose-400" />
                           <span>View on Map</span>
@@ -380,7 +380,7 @@ export const Facilities: React.FC = () => {
         {activeTab === 'REPORTS' && (
           <div>
             {/* Filters Bar */}
-            <div className="bg-slate-900/60 border border-slate-800 rounded-3xl p-5 mb-8">
+            <div className="bg-[#FDFDFD] border border-[#DFDFE0] rounded-3xl p-5 mb-8 shadow-sm">
               <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-4">
                 <div className="flex items-center space-x-2 text-xs font-semibold text-slate-400">
                   <Filter className="w-4 h-4 text-primary-400" />
@@ -396,7 +396,7 @@ export const Facilities: React.FC = () => {
                       className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                         selectedStatus === st
                           ? 'bg-primary-500 text-white shadow-md shadow-primary-500/20'
-                          : 'bg-slate-800/60 text-slate-400 hover:text-white'
+                          : 'bg-[#FDFDFD] text-[#636363] border border-[#DFDFE0] hover:text-[#18181B]'
                       }`}
                     >
                       {st === 'ALL' ? 'All Status' : st.replace('_', ' ')}
@@ -411,8 +411,8 @@ export const Facilities: React.FC = () => {
                   onClick={() => setSelectedCategory('ALL')}
                   className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
                     selectedCategory === 'ALL'
-                      ? 'bg-white text-slate-950 shadow-md'
-                      : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
+                      ? 'bg-[#776BFD] text-white shadow-md shadow-[#776BFD]/25'
+                      : 'bg-[#FDFDFD] text-[#636363] border border-[#DFDFE0] hover:text-[#18181B] hover:border-[#B6ADC3]'
                   }`}
                 >
                   All Issues
@@ -426,8 +426,8 @@ export const Facilities: React.FC = () => {
                       onClick={() => setSelectedCategory(cat.value)}
                       className={`flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
                         isSelected
-                          ? 'bg-white text-slate-950 shadow-md'
-                          : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
+                          ? 'bg-[#776BFD] text-white shadow-md shadow-[#776BFD]/25'
+                          : 'bg-[#FDFDFD] text-[#636363] border border-[#DFDFE0] hover:text-[#18181B] hover:border-[#B6ADC3]'
                       }`}
                     >
                       <Icon className="w-3.5 h-3.5" />
@@ -442,20 +442,20 @@ export const Facilities: React.FC = () => {
             {loading ? (
               <div className="space-y-4">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="bg-slate-900 border border-slate-800 rounded-3xl p-6 h-36 animate-pulse" />
+                  <div key={i} className="bg-[#FDFDFD] border border-[#DFDFE0] rounded-3xl p-6 h-36 animate-pulse" />
                 ))}
               </div>
             ) : reports.length === 0 ? (
-              <div className="text-center py-16 bg-slate-900/40 border border-slate-800 rounded-3xl">
+              <div className="text-center py-16 bg-[#FDFDFD] border border-[#DFDFE0] rounded-3xl shadow-sm">
                 <CheckCircle2 className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-                <h3 className="text-lg font-bold text-white mb-1">No community reports found</h3>
-                <p className="text-sm text-slate-400 mb-6">There are no reports matching this category filter.</p>
+                <h3 className="text-lg font-bold text-[#18181B] mb-1">No community reports found</h3>
+                <p className="text-sm text-[#636363] mb-6 font-medium">There are no reports matching this category filter.</p>
                 <button
                   onClick={() => {
                     setSelectedCategory('ALL');
                     setSelectedStatus('ALL');
                   }}
-                  className="px-4 py-2 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-700"
+                  className="px-4 py-2 bg-[#FDFDFD] hover:bg-white text-[#18181B] border border-[#DFDFE0] rounded-xl text-xs font-semibold shadow-xs cursor-pointer"
                 >
                   Reset Filters
                 </button>
@@ -470,7 +470,7 @@ export const Facilities: React.FC = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: Math.min(idx * 0.05, 0.3) }}
-                      className="bg-slate-900/80 border border-slate-800 hover:border-slate-700/80 rounded-3xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 transition-all shadow-lg"
+                      className="bg-[#FDFDFD] border border-[#DFDFE0] hover:border-[#B6ADC3] rounded-3xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 transition-all shadow-xs"
                     >
                       <div className="flex items-start space-x-4 flex-1">
                         {/* Upvote Escalation Button */}
@@ -479,7 +479,7 @@ export const Facilities: React.FC = () => {
                           className={`flex flex-col items-center justify-center p-3 rounded-2xl border transition-all duration-200 shrink-0 ${
                             isUpvoted
                               ? 'bg-primary-500/20 border-primary-500/40 text-primary-300'
-                              : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-white'
+                              : 'bg-[#FDFDFD] border-[#DFDFE0] text-[#636363] hover:border-[#B6ADC3] hover:text-[#18181B]'
                           }`}
                         >
                           <ThumbsUp className={`w-4 h-4 mb-1 ${isUpvoted ? 'fill-primary-400 text-primary-400' : ''}`} />
@@ -490,17 +490,17 @@ export const Facilities: React.FC = () => {
                         {/* Details */}
                         <div className="flex-1">
                           <div className="flex flex-wrap items-center gap-2 mb-2">
-                            <span className="px-2 py-0.5 rounded-lg text-xs font-bold bg-slate-800 text-primary-400 border border-slate-700">
+                            <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold bg-[#776BFD]/10 text-[#776BFD] border border-[#776BFD]/20">
                               {report.category.replace('_', ' ')}
                             </span>
                             <PriorityBadge priority={report.priority} />
                             <IssueStatusBadge status={report.status} />
                           </div>
 
-                          <h3 className="text-lg font-bold text-white mb-1.5">{report.title}</h3>
-                          <p className="text-xs text-slate-300 leading-relaxed mb-3">{report.description}</p>
+                          <h3 className="text-lg font-black text-[#18181B] mb-1.5">{report.title}</h3>
+                          <p className="text-xs text-[#636363] leading-relaxed mb-3 font-medium">{report.description}</p>
 
-                          <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400">
+                          <div className="flex flex-wrap items-center gap-4 text-xs text-[#636363]">
                             <div className="flex items-center space-x-1">
                               <MapPin className="w-3.5 h-3.5 text-rose-400" />
                               <span>{report.buildingName || 'Campus'} {report.specificLocation ? `(${report.specificLocation})` : ''}</span>
@@ -513,7 +513,7 @@ export const Facilities: React.FC = () => {
 
                           {/* Staff Notes if any */}
                           {report.staffNotes && (
-                            <div className="mt-3 p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-xs text-emerald-300">
+                            <div className="mt-3 p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 font-medium">
                               <span className="font-bold">Staff Resolution Note: </span>
                               <span>{report.staffNotes}</span>
                             </div>
@@ -530,7 +530,7 @@ export const Facilities: React.FC = () => {
                             navigate('/map');
                           }
                         }}
-                        className="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold flex items-center space-x-1.5 shrink-0 self-end md:self-center"
+                        className="btn-secondary px-3.5 py-2 rounded-xl text-xs flex items-center space-x-1.5 shrink-0 self-end md:self-center"
                       >
                         <MapPin className="w-3.5 h-3.5 text-rose-400" />
                         <span>Map Location</span>
@@ -546,16 +546,16 @@ export const Facilities: React.FC = () => {
         {/* SUBMIT ISSUE MODAL */}
         <AnimatePresence>
           {showReportModal && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#18181B]/40 backdrop-blur-md">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                className="bg-slate-900 border border-slate-800 rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative"
+                className="bg-[#FDFDFD] border border-[#DFDFE0] rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative text-[#18181B]"
               >
                 <button
                   onClick={() => setShowReportModal(false)}
-                  className="absolute right-5 top-5 p-2 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-full transition-all"
+                  className="absolute right-5 top-5 p-2 bg-[#DFDFE0]/50 hover:bg-[#DFDFE0] text-[#636363] hover:text-[#18181B] rounded-full transition-all cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -564,8 +564,8 @@ export const Facilities: React.FC = () => {
                   <Wrench className="w-4 h-4" />
                   <span>Student Issue Escalation</span>
                 </div>
-                <h2 className="text-2xl font-extrabold text-white mb-2">Report a Campus Issue</h2>
-                <p className="text-xs text-slate-400 mb-6">
+                <h2 className="text-2xl font-black text-[#18181B] mb-2">Report a Campus Issue</h2>
+                <p className="text-xs text-[#636363] mb-6">
                   Help improve campus facilities. Maintenance teams and student council monitor this feed continuously.
                 </p>
 
@@ -573,12 +573,12 @@ export const Facilities: React.FC = () => {
                   <div className="py-12 text-center">
                     <CheckCircle2 className="w-16 h-16 text-emerald-400 mx-auto mb-4 animate-bounce" />
                     <h3 className="text-xl font-bold text-white mb-2">Issue Reported Successfully!</h3>
-                    <p className="text-xs text-slate-400">Maintenance desk will review and assign staff shortly.</p>
+                    <p className="text-xs text-[#636363]">Maintenance desk will review and assign staff shortly.</p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmitReport} className="space-y-4">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                      <label className="block text-xs font-bold text-[#18181B] mb-1.5">
                         Issue Title *
                       </label>
                       <input
@@ -587,19 +587,19 @@ export const Facilities: React.FC = () => {
                         placeholder="e.g., Water cooler leaking on 2nd Floor"
                         value={formData.title}
                         onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                        className="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                        className="w-full px-4 py-2.5 bg-[#FDFDFD] border border-[#DFDFE0] rounded-xl text-sm text-[#18181B] placeholder-[#636363]/60 focus:outline-none focus:ring-2 focus:ring-[#776BFD]/20 focus:border-[#776BFD]"
                       />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                        <label className="block text-xs font-bold text-[#18181B] mb-1.5">
                           Category *
                         </label>
                         <select
                           value={formData.category}
                           onChange={(e) => setFormData({ ...formData, category: e.target.value as IssueCategory })}
-                          className="w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                          className="w-full px-3 py-2.5 bg-[#FDFDFD] border border-[#DFDFE0] rounded-xl text-xs text-[#18181B] placeholder-[#636363]/60 focus:outline-none focus:ring-2 focus:ring-[#776BFD]/20 focus:border-[#776BFD]"
                         >
                           {ISSUE_CATEGORIES.map((c) => (
                             <option key={c.value} value={c.value}>
@@ -610,13 +610,13 @@ export const Facilities: React.FC = () => {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                        <label className="block text-xs font-bold text-[#18181B] mb-1.5">
                           Priority Level
                         </label>
                         <select
                           value={formData.priority}
                           onChange={(e) => setFormData({ ...formData, priority: e.target.value as IssuePriority })}
-                          className="w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                          className="w-full px-3 py-2.5 bg-[#FDFDFD] border border-[#DFDFE0] rounded-xl text-xs text-[#18181B] placeholder-[#636363]/60 focus:outline-none focus:ring-2 focus:ring-[#776BFD]/20 focus:border-[#776BFD]"
                         >
                           <option value="LOW">Low (Cosmetic / Minor)</option>
                           <option value="MEDIUM">Medium (Normal)</option>
@@ -628,7 +628,7 @@ export const Facilities: React.FC = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                        <label className="block text-xs font-bold text-[#18181B] mb-1.5">
                           Building
                         </label>
                         <select
@@ -639,7 +639,7 @@ export const Facilities: React.FC = () => {
                               buildingId: e.target.value ? Number(e.target.value) : undefined,
                             })
                           }
-                          className="w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                          className="w-full px-3 py-2.5 bg-[#FDFDFD] border border-[#DFDFE0] rounded-xl text-xs text-[#18181B] placeholder-[#636363]/60 focus:outline-none focus:ring-2 focus:ring-[#776BFD]/20 focus:border-[#776BFD]"
                         >
                           <option value="">Select Building (Optional)</option>
                           {buildings.map((b) => (
@@ -651,7 +651,7 @@ export const Facilities: React.FC = () => {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                        <label className="block text-xs font-bold text-[#18181B] mb-1.5">
                           Specific Spot / Room
                         </label>
                         <input
@@ -659,13 +659,13 @@ export const Facilities: React.FC = () => {
                           placeholder="e.g. Near Washroom 204 or Staircase B"
                           value={formData.specificLocation || ''}
                           onChange={(e) => setFormData({ ...formData, specificLocation: e.target.value })}
-                          className="w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                          className="w-full px-3 py-2.5 bg-[#FDFDFD] border border-[#DFDFE0] rounded-xl text-xs text-[#18181B] placeholder-[#636363]/60 focus:outline-none focus:ring-2 focus:ring-[#776BFD]/20 focus:border-[#776BFD]"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                      <label className="block text-xs font-bold text-[#18181B] mb-1.5">
                         Description *
                       </label>
                       <textarea
@@ -674,22 +674,22 @@ export const Facilities: React.FC = () => {
                         placeholder="Explain what is broken, dangerous, or needs repair..."
                         value={formData.description}
                         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                        className="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                        className="w-full px-4 py-2.5 bg-[#FDFDFD] border border-[#DFDFE0] rounded-xl text-xs text-[#18181B] placeholder-[#636363]/60 focus:outline-none focus:ring-2 focus:ring-[#776BFD]/20 focus:border-[#776BFD]"
                       />
                     </div>
 
-                    <div className="pt-3 border-t border-slate-800 flex items-center justify-end space-x-3">
+                    <div className="pt-3 border-t border-[#DFDFE0] flex items-center justify-end space-x-3">
                       <button
                         type="button"
                         onClick={() => setShowReportModal(false)}
-                        className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold"
+                        className="px-4 py-2.5 bg-[#DFDFE0]/40 hover:bg-[#DFDFE0] text-[#636363] hover:text-[#18181B] rounded-xl text-xs font-bold cursor-pointer"
                       >
                         Cancel
                       </button>
                       <button
                         type="submit"
                         disabled={submitting}
-                        className="px-6 py-2.5 bg-primary-500 hover:bg-primary-400 text-slate-950 rounded-xl text-xs font-bold flex items-center space-x-2 shadow-lg shadow-primary-500/20"
+                        className="btn-primary flex items-center space-x-2 text-xs py-2.5 px-6"
                       >
                         <Send className="w-3.5 h-3.5" />
                         <span>{submitting ? 'Submitting...' : 'Submit Issue'}</span>
@@ -711,28 +711,28 @@ const FacilityStatusBadge: React.FC<{ status: FacilityStatus }> = ({ status }) =
   switch (status) {
     case 'UNDER_MAINTENANCE':
       return (
-        <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center space-x-1.5">
-          <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+        <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#F86B7E]/10 text-[#F86B7E] border border-[#F86B7E]/30 flex items-center space-x-1.5">
+          <span className="w-2 h-2 rounded-full bg-[#F86B7E] animate-pulse" />
           <span>UNDER MAINTENANCE</span>
         </span>
       );
     case 'TEMPORARILY_CLOSED':
       return (
-        <span className="px-3 py-1 rounded-full text-xs font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30 flex items-center space-x-1.5">
-          <span className="w-2 h-2 rounded-full bg-rose-400" />
+        <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#F86B7E]/15 text-[#EE495F] border border-[#F86B7E]/30 flex items-center space-x-1.5">
+          <span className="w-2 h-2 rounded-full bg-[#EE495F]" />
           <span>TEMPORARILY CLOSED</span>
         </span>
       );
     case 'RESTRICTED_ACCESS':
       return (
-        <span className="px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 flex items-center space-x-1.5">
+        <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#B6ADC3]/20 text-[#636363] border border-[#B6ADC3]/30 flex items-center space-x-1.5">
           <span>RESTRICTED ACCESS</span>
         </span>
       );
     case 'OPERATIONAL':
       return (
-        <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center space-x-1.5">
-          <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+        <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center space-x-1.5">
+          <CheckCircle2 className="w-3 h-3 text-emerald-600" />
           <span>OPERATIONAL</span>
         </span>
       );
@@ -744,26 +744,26 @@ const PriorityBadge: React.FC<{ priority: IssuePriority }> = ({ priority }) => {
   switch (priority) {
     case 'CRITICAL':
       return (
-        <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center space-x-1">
+        <span className="px-2.5 py-0.5 rounded-lg text-[11px] font-bold bg-[#F86B7E]/10 text-[#EE495F] border border-[#F86B7E]/20 flex items-center space-x-1">
           <ShieldAlert className="w-3 h-3" />
           <span>CRITICAL</span>
         </span>
       );
     case 'HIGH':
       return (
-        <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">
+        <span className="px-2.5 py-0.5 rounded-lg text-[11px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
           HIGH PRIORITY
         </span>
       );
     case 'MEDIUM':
       return (
-        <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-slate-800 text-slate-300">
+        <span className="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-[#776BFD]/10 text-[#776BFD] border border-[#776BFD]/20">
           MEDIUM
         </span>
       );
     case 'LOW':
       return (
-        <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-900 text-slate-500">
+        <span className="px-2.5 py-0.5 rounded-lg text-[11px] font-medium bg-[#DFDFE0]/40 text-[#636363] border border-[#DFDFE0]">
           LOW
         </span>
       );
@@ -775,31 +775,31 @@ const IssueStatusBadge: React.FC<{ status: IssueStatus }> = ({ status }) => {
   switch (status) {
     case 'REPORTED':
       return (
-        <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20">
+        <span className="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-sky-50 text-sky-700 border border-sky-200">
           ● Reported
         </span>
       );
     case 'IN_REVIEW':
       return (
-        <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+        <span className="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">
           ◐ Under Review
         </span>
       );
     case 'IN_PROGRESS':
       return (
-        <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20">
+        <span className="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-[#776BFD]/10 text-[#776BFD] border border-[#776BFD]/20">
           ⚙ In Progress
         </span>
       );
     case 'RESOLVED':
       return (
-        <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+        <span className="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
           ✓ Resolved
         </span>
       );
     case 'DISMISSED':
       return (
-        <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-800 text-slate-500">
+        <span className="px-2.5 py-0.5 rounded-lg text-[11px] font-medium bg-[#DFDFE0]/40 text-[#636363] border border-[#DFDFE0]">
           Dismissed
         </span>
       );

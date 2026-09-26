@@ -6,6 +6,9 @@ import com.uniyar.entity.*;
 import com.uniyar.exception.ResourceNotFoundException;
 import com.uniyar.repository.FacultyRepository;
 import com.uniyar.repository.TimetableRepository;
+import com.uniyar.repository.RoomRepository;
+import com.uniyar.dto.faculty.FacultyProfileUpdateRequest;
+import com.uniyar.dto.faculty.TimetableUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +25,7 @@ public class FacultyService {
 
     private final FacultyRepository facultyRepository;
     private final TimetableRepository timetableRepository;
+    private final RoomRepository roomRepository;
 
     public Page<FacultyResponse> getFacultyList(String search, Long departmentId, Pageable pageable) {
         String cleanSearch = (search != null && !search.trim().isEmpty()) ? search.trim() : null;
@@ -42,6 +46,81 @@ public class FacultyService {
         return timetableRepository.findByFacultyId(facultyId).stream()
                 .map(this::mapToTimetableResponse)
                 .collect(Collectors.toList());
+    }
+
+    public FacultyResponse getFacultyByUserId(Long userId) {
+        return mapToFacultyResponse(facultyRepository.findByUserId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Faculty profile not found for this account")));
+    }
+
+    @Transactional
+    public FacultyResponse updateMyProfile(Long userId, FacultyProfileUpdateRequest request) {
+        Faculty faculty = facultyRepository.findByUserId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Faculty profile not found for this account"));
+        faculty.setDesignation(request.getDesignation());
+        faculty.setSubjects(request.getSubjects());
+        faculty.setAvatarUrl(request.getAvatarUrl());
+        faculty.setBio(request.getBio());
+        return mapToFacultyResponse(facultyRepository.save(faculty));
+    }
+
+    @Transactional
+    public TimetableResponse createTimetable(TimetableUpdateRequest request, User caller) {
+        if (request.getFacultyId() == null) throw new IllegalArgumentException("Faculty ID is required");
+        Faculty faculty = facultyRepository.findById(request.getFacultyId())
+                .orElseThrow(() -> new ResourceNotFoundException("Faculty", "id", request.getFacultyId()));
+        if (caller.getRole() != UserRole.ROLE_ADMIN && !faculty.getUser().getId().equals(caller.getId())) {
+            throw new org.springframework.security.access.AccessDeniedException("You can only create timetable entries for your own faculty profile.");
+        }
+        Room room = roomRepository.findById(request.getRoomId())
+                .orElseThrow(() -> new ResourceNotFoundException("Room", "id", request.getRoomId()));
+        Timetable entry = Timetable.builder().faculty(faculty).room(room).subject(request.getSubject())
+                .dayOfWeek(request.getDayOfWeek().toUpperCase()).startTime(request.getStartTime())
+                .endTime(request.getEndTime()).build();
+        return mapToTimetableResponse(timetableRepository.save(entry));
+    }
+
+    @Transactional
+    public TimetableResponse updateTimetable(Long id, TimetableUpdateRequest request, User caller) {
+        Timetable entry = timetableRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Timetable", "id", id));
+        if (caller.getRole() != UserRole.ROLE_ADMIN && !entry.getFaculty().getUser().getId().equals(caller.getId())) {
+            throw new org.springframework.security.access.AccessDeniedException("You can only update your own timetable entries.");
+        }
+        Faculty faculty = facultyRepository.findById(request.getFacultyId())
+                .orElseThrow(() -> new ResourceNotFoundException("Faculty", "id", request.getFacultyId()));
+        Room room = roomRepository.findById(request.getRoomId())
+                .orElseThrow(() -> new ResourceNotFoundException("Room", "id", request.getRoomId()));
+        entry.setFaculty(faculty); entry.setRoom(room); entry.setSubject(request.getSubject());
+        entry.setDayOfWeek(request.getDayOfWeek().toUpperCase()); entry.setStartTime(request.getStartTime()); entry.setEndTime(request.getEndTime());
+        return mapToTimetableResponse(timetableRepository.save(entry));
+    }
+
+    @Transactional
+    public void deleteTimetable(Long id, User caller) {
+        Timetable entry = timetableRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Timetable", "id", id));
+        if (caller.getRole() != UserRole.ROLE_ADMIN && !entry.getFaculty().getUser().getId().equals(caller.getId())) {
+            throw new org.springframework.security.access.AccessDeniedException("You can only delete your own timetable entries.");
+        }
+        timetableRepository.deleteById(id);
+    }
+
+    @Transactional
+    public TimetableResponse createMyTimetable(Long userId, TimetableUpdateRequest request) {
+        Faculty faculty = facultyRepository.findByUserId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Faculty profile not found for this account"));
+        request.setFacultyId(faculty.getId());
+        return createTimetable(request, faculty.getUser());
+    }
+
+    @Transactional
+    public void deleteMyTimetable(Long userId, Long id) {
+        Timetable entry = timetableRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Timetable", "id", id));
+        if (!entry.getFaculty().getUser().getId().equals(userId)) {
+            throw new IllegalArgumentException("You can only remove your own timetable entries");
+        }
+        timetableRepository.delete(entry);
     }
 
     private FacultyResponse mapToFacultyResponse(Faculty f) {

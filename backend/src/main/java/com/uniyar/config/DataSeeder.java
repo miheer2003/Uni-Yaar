@@ -193,10 +193,10 @@ public class DataSeeder implements CommandLineRunner {
                 .build());
 
         userRepository.save(User.builder()
-                .fullName("Priya Verma (Operations Desk)")
-                .email("facilities@uniyaar.edu")
-                .password(passwordEncoder.encode("Staff@123"))
-                .role(UserRole.ROLE_STAFF)
+                .fullName("Priya Verma (Food Staff)")
+                .email("foodstaff@uniyaar.edu")
+                .password(passwordEncoder.encode("FoodStaff@123"))
+                .role(UserRole.ROLE_FOOD_STAFF)
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build());
@@ -416,7 +416,7 @@ public class DataSeeder implements CommandLineRunner {
 
         log.info("Realistic dataset seeding successfully completed!");
         log.info("Default Admin: admin@uniyaar.edu / Admin@123");
-        log.info("Default Staff: facilities@uniyaar.edu / Staff@123");
+        log.info("Default Food Staff: foodstaff@uniyaar.edu / FoodStaff@123");
         log.info("Default Student: student@uniyaar.edu / Student@123");
     }
 }

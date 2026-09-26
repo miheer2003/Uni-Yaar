@@ -9,62 +9,78 @@
   }
   
   body {
-    @apply bg-slate-950 text-slate-100 font-sans antialiased overflow-x-hidden;
+    @apply bg-[#DFDFE0] text-[#18181B] font-sans antialiased overflow-x-hidden;
   }
   
   * {
-    @apply border-slate-800;
+    @apply border-[#DFDFE0];
   }
 }
 
 /* Custom component styles */
 @layer components {
   .btn-primary {
-    @apply px-6 py-3 bg-primary-500 hover:bg-primary-600 text-slate-950 font-semibold rounded-lg transition-all duration-200 shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40;
+    @apply px-6 py-3 bg-[#6455F5] hover:bg-[#5244D4] text-white font-semibold rounded-2xl transition-all duration-200 shadow-md shadow-[#776BFD]/25 hover:shadow-lg hover:shadow-[#776BFD]/35;
   }
   
+  .btn-flamingo {
+    @apply px-6 py-3 bg-[#EE495F] hover:bg-[#D7344A] text-white font-semibold rounded-2xl transition-all duration-200 shadow-md shadow-[#F86B7E]/25 hover:shadow-lg hover:shadow-[#F86B7E]/35;
+  }
+
   .btn-secondary {
-    @apply px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-100 font-semibold rounded-lg transition-all duration-200 border border-slate-700;
+    @apply px-6 py-3 bg-[#FDFDFD] hover:bg-white text-[#18181B] font-semibold rounded-2xl transition-all duration-200 border border-[#DFDFE0] shadow-sm hover:border-[#B6ADC3];
   }
   
   .btn-ghost {
-    @apply px-4 py-2 text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all duration-200;
+    @apply px-4 py-2 text-[#636363] hover:text-[#18181B] hover:bg-[#DFDFE0]/50 rounded-xl transition-all duration-200;
   }
   
   .card {
-    @apply bg-slate-850 border border-slate-800 rounded-xl p-6 shadow-xl;
+    @apply bg-[#FDFDFD] border border-[#DFDFE0] rounded-3xl p-6 shadow-[0_4px_25px_rgba(0,0,0,0.03)];
   }
   
   .card-hover {
-    @apply card hover:border-slate-700 hover:shadow-2xl transition-all duration-300 cursor-pointer;
+    @apply card hover:border-[#B6ADC3] hover:shadow-[0_8px_30px_rgba(119,107,253,0.08)] transition-all duration-300 cursor-pointer;
   }
   
   .input {
-    @apply w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200;
+    @apply w-full px-4 py-3 bg-[#FDFDFD] border border-[#DFDFE0] rounded-2xl text-[#18181B] placeholder-[#636363]/60 focus:outline-none focus:ring-2 focus:ring-[#776BFD]/20 focus:border-[#776BFD] transition-all duration-200;
   }
   
   .badge {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold;
   }
   
+  .badge-primary {
+    @apply badge bg-[#776BFD]/10 text-[#776BFD] border border-[#776BFD]/20;
+  }
+
+  .badge-flamingo {
+    @apply badge bg-[#F86B7E]/10 text-[#F86B7E] border border-[#F86B7E]/20;
+  }
+
+  .badge-lilac {
+    @apply badge bg-[#B6ADC3]/20 text-[#636363] border border-[#B6ADC3]/30;
+  }
+
   .badge-success {
-    @apply badge bg-success-500/20 text-success-500;
+    @apply badge bg-emerald-50 text-emerald-600 border border-emerald-200;
   }
   
   .badge-warning {
-    @apply badge bg-warning-500/20 text-warning-500;
+    @apply badge bg-amber-50 text-amber-600 border border-amber-200;
   }
   
   .badge-danger {
-    @apply badge bg-danger-500/20 text-danger-500;
+    @apply badge bg-[#F86B7E]/10 text-[#EE495F] border border-[#F86B7E]/20;
   }
   
   .gradient-primary {
-    @apply bg-gradient-to-r from-primary-500 to-accent-500;
+    @apply bg-gradient-to-r from-[#776BFD] to-[#F86B7E];
   }
   
   .gradient-text {
-    @apply bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-[#776BFD] to-[#F86B7E] bg-clip-text text-transparent;
   }
 }
 
@@ -75,14 +91,19 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-slate-900;
+  background: #DFDFE0;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-700 rounded-full hover:bg-slate-600;
+  background: #B6ADC3;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9B90AC;
 }
 
 /* Leaflet map overrides */
 .leaflet-container {
-  @apply bg-slate-900 rounded-lg;
+  @apply bg-[#DFDFE0] rounded-2xl;
 }

@@ -152,25 +152,25 @@ export default function FoodMess() {
   const getDietaryBadge = (tag: string) => {
     switch (tag) {
       case 'VEG':
-        return <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">🟢 Veg</span>;
+        return <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-lg text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">🟢 Veg</span>;
       case 'JAIN':
-        return <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">🟡 Jain</span>;
+        return <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-lg text-[11px] font-bold bg-amber-50 text-amber-700 border border-amber-200">🟡 Jain</span>;
       case 'NON_VEG':
-        return <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">🔴 Non-Veg</span>;
+        return <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-lg text-[11px] font-bold bg-[#F86B7E]/10 text-[#EE495F] border border-[#F86B7E]/20">🔴 Non-Veg</span>;
       default:
-        return <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-slate-800 text-slate-300">Special</span>;
+        return <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-[#DFDFE0]/40 text-[#636363] border border-[#DFDFE0]">Special</span>;
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#DFDFE0] py-12 px-4 sm:px-6 lg:px-8 text-[#18181B]">
       <div className="max-w-7xl mx-auto">
         {/* Gen-Z / Indian Brand Hero */}
         <div className="text-center max-w-3xl mx-auto mb-10">
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center space-x-2 px-3 py-1 bg-orange-500/10 border border-orange-500/20 rounded-full text-orange-400 text-xs font-semibold uppercase tracking-wider mb-4"
+            className="inline-flex items-center space-x-2 px-3.5 py-1 bg-[#FDFDFD] border border-[#DFDFE0] rounded-full text-[#776BFD] text-xs font-semibold uppercase tracking-wider mb-4 shadow-xs"
           >
             <UtensilsCrossed className="w-3.5 h-3.5" />
             <span>Campus Dining & Mess</span>
@@ -178,14 +178,14 @@ export default function FoodMess() {
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight"
+            className="text-4xl sm:text-5xl font-black text-[#18181B] tracking-tight"
           >
-            Khane Ka <span className="gradient-text">Kya Scene Hai?</span>
+            Khane Ka <span className="bg-gradient-to-r from-[#776BFD] to-[#F86B7E] bg-clip-text text-transparent">Kya Scene Hai?</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-3 text-lg text-slate-400"
+            className="mt-3 text-lg text-[#636363] font-medium"
           >
             Check today's mess menu, canteen timings, live availability, and dietary choices across campus.
           </motion.p>
@@ -195,10 +195,10 @@ export default function FoodMess() {
         {loadingOutlets ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="p-5 rounded-2xl border border-slate-800 bg-slate-900/60 animate-pulse h-36">
-                <div className="h-4 bg-slate-800 rounded w-1/4 mb-3" />
-                <div className="h-6 bg-slate-800 rounded w-3/4 mb-2" />
-                <div className="h-3 bg-slate-800 rounded w-full mb-1" />
+              <div key={i} className="p-5 rounded-3xl border border-[#DFDFE0] bg-[#FDFDFD] animate-pulse h-36">
+                <div className="h-4 bg-[#DFDFE0] rounded w-1/4 mb-3" />
+                <div className="h-6 bg-[#DFDFE0] rounded w-3/4 mb-2" />
+                <div className="h-3 bg-[#DFDFE0] rounded w-full mb-1" />
               </div>
             ))}
           </div>
@@ -210,39 +210,39 @@ export default function FoodMess() {
               <button
                 key={outlet.id}
                 onClick={() => setSelectedFacilityId(outlet.id)}
-                className={`text-left p-5 rounded-2xl border transition-all duration-200 relative overflow-hidden ${
+                className={`text-left p-6 rounded-3xl border transition-all duration-200 relative overflow-hidden cursor-pointer ${
                   isSelected
-                    ? 'bg-slate-900 border-primary-500 shadow-xl shadow-primary-500/10'
-                    : 'bg-slate-900/60 border-slate-800 hover:border-slate-700'
+                    ? 'bg-[#FDFDFD] border-2 border-[#776BFD] shadow-lg shadow-[#776BFD]/10'
+                    : 'bg-[#FDFDFD] border-[#DFDFE0] hover:border-[#B6ADC3] shadow-xs'
                 }`}
               >
                 <div className="flex items-start justify-between mb-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-primary-400">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#776BFD]">
                     {outlet.type}
                   </span>
-                  <span className={`inline-flex items-center space-x-1 text-xs font-semibold px-2 py-0.5 rounded-full ${
-                    outlet.status === 'OPEN' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'
+                  <span className={`inline-flex items-center space-x-1 text-xs font-semibold px-2.5 py-0.5 rounded-full ${
+                    outlet.status === 'OPEN' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-[#F86B7E]/10 text-[#EE495F] border border-[#F86B7E]/20'
                   }`}>
                     {outlet.status === 'OPEN' ? <CheckCircle2 className="w-3 h-3" /> : <XCircle className="w-3 h-3" />}
                     <span>{outlet.status}</span>
                   </span>
                 </div>
 
-                <h3 className="text-lg font-bold text-white mb-1.5 leading-snug">
+                <h3 className="text-lg font-black text-[#18181B] mb-1.5 leading-snug">
                   {outlet.name}
                 </h3>
-                <p className="text-xs text-slate-400 line-clamp-2 mb-3">
+                <p className="text-xs text-[#636363] line-clamp-2 mb-3 leading-relaxed font-medium">
                   {outlet.description}
                 </p>
 
-                <div className="flex items-center justify-between text-xs text-slate-500 pt-3 border-t border-slate-800">
+                <div className="flex items-center justify-between text-xs text-[#636363] pt-3 border-t border-[#DFDFE0] font-medium">
                   <div className="flex items-center space-x-1">
-                    <Clock className="w-3.5 h-3.5 text-accent-400" />
+                    <Clock className="w-3.5 h-3.5 text-[#776BFD]" />
                     <span>{outlet.openingTime} – {outlet.closingTime}</span>
                   </div>
                   {outlet.buildingName && (
                     <div className="flex items-center space-x-1">
-                      <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                      <MapPin className="w-3.5 h-3.5 text-[#B6ADC3]" />
                       <span className="truncate max-w-[120px]">{outlet.buildingName}</span>
                     </div>
                   )}
@@ -255,16 +255,16 @@ export default function FoodMess() {
 
         {/* Active Canteen Info & Map Navigation */}
         {selectedFacility && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-7 mb-8 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="bg-[#FDFDFD] border border-[#DFDFE0] rounded-3xl p-6 sm:p-7 mb-8 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <div className="flex items-center space-x-2 text-xs text-primary-400 font-semibold mb-1">
+              <div className="flex items-center space-x-2 text-xs text-[#776BFD] font-bold mb-1">
                 <Coffee className="w-4 h-4" />
                 <span>Selected Outlet Details</span>
               </div>
-              <h2 className="text-2xl font-extrabold text-white">
+              <h2 className="text-2xl font-black text-[#18181B]">
                 {selectedFacility.name}
               </h2>
-              <p className="text-sm text-slate-400 mt-1">
+              <p className="text-sm text-[#636363] mt-1 font-medium">
                 Located at {selectedFacility.buildingName || 'Campus Central Block'} • Open today until {selectedFacility.closingTime}
               </p>
             </div>
@@ -272,7 +272,7 @@ export default function FoodMess() {
             {selectedFacility.latitude && selectedFacility.longitude && (
               <Link
                 to={`/map?lat=${selectedFacility.latitude}&lng=${selectedFacility.longitude}&name=${encodeURIComponent(selectedFacility.name)}`}
-                className="btn-primary inline-flex items-center space-x-2 py-3 px-5 rounded-xl font-semibold shadow-lg shadow-primary-500/20 self-start sm:self-auto"
+                className="btn-primary inline-flex items-center space-x-2 py-3 px-5 rounded-2xl font-semibold shadow-md shadow-[#776BFD]/25 self-start sm:self-auto"
               >
                 <Compass className="w-4 h-4" />
                 <span>Navigate on Map</span>
@@ -284,13 +284,13 @@ export default function FoodMess() {
         {/* Date Selector & Meal Tabs */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
           {/* Day Switcher */}
-          <div className="flex items-center space-x-2 bg-slate-900 p-1.5 rounded-2xl border border-slate-800 w-fit">
+          <div className="flex items-center space-x-2 bg-[#FDFDFD] p-1.5 rounded-2xl border border-[#DFDFE0] w-fit shadow-xs">
             <button
               onClick={() => setSelectedDayOffset(0)}
-              className={`flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+              className={`flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 selectedDayOffset === 0
-                  ? 'bg-primary-500 text-slate-950 shadow-md shadow-primary-500/20'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-[#776BFD] text-white shadow-md shadow-[#776BFD]/25'
+                  : 'text-[#636363] hover:text-[#18181B]'
               }`}
             >
               <Calendar className="w-3.5 h-3.5" />
@@ -298,10 +298,10 @@ export default function FoodMess() {
             </button>
             <button
               onClick={() => setSelectedDayOffset(1)}
-              className={`flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+              className={`flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 selectedDayOffset === 1
-                  ? 'bg-primary-500 text-slate-950 shadow-md shadow-primary-500/20'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-[#776BFD] text-white shadow-md shadow-[#776BFD]/25'
+                  : 'text-[#636363] hover:text-[#18181B]'
               }`}
             >
               <Calendar className="w-3.5 h-3.5" />
@@ -315,10 +315,10 @@ export default function FoodMess() {
               <button
                 key={tag}
                 onClick={() => setSelectedDietary(tag)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
                   selectedDietary === tag
-                    ? 'bg-slate-800 text-white border-primary-500'
-                    : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
+                    ? 'bg-[#776BFD] text-white border-[#776BFD] shadow-sm'
+                    : 'bg-[#FDFDFD] text-[#636363] border-[#DFDFE0] hover:text-[#18181B] hover:border-[#B6ADC3]'
                 }`}
               >
                 {tag === 'ALL' ? '🍽️ All Diets' : tag === 'VEG' ? '🟢 Pure Veg' : tag === 'JAIN' ? '🟡 Jain' : '🔴 Non-Veg'}
@@ -328,17 +328,17 @@ export default function FoodMess() {
         </div>
 
         {/* Meal Category Tabs (Breakfast, Lunch, Snacks, Dinner) */}
-        <div className="flex items-center space-x-2 border-b border-slate-800 pb-3 mb-6 overflow-x-auto scrollbar-none">
+        <div className="flex items-center space-x-2 border-b border-[#DFDFE0] pb-3 mb-6 overflow-x-auto scrollbar-none">
           {(['BREAKFAST', 'LUNCH', 'SNACKS', 'DINNER'] as MealType[]).map((meal) => {
             const isCurrent = activeMeal === meal;
             return (
               <button
                 key={meal}
                 onClick={() => setActiveMeal(meal)}
-                className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                className={`px-6 py-2.5 rounded-2xl text-sm font-bold transition-all cursor-pointer ${
                   isCurrent
-                    ? 'bg-primary-500 text-slate-950 shadow-lg shadow-primary-500/20'
-                    : 'bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800'
+                    ? 'bg-[#776BFD] text-white shadow-md shadow-[#776BFD]/25'
+                    : 'bg-[#FDFDFD] text-[#636363] hover:text-[#18181B] border border-[#DFDFE0] hover:border-[#B6ADC3]'
                 }`}
               >
                 {meal === 'BREAKFAST' ? '🌅 Breakfast' : meal === 'LUNCH' ? '🍛 Lunch' : meal === 'SNACKS' ? '☕ Snacks' : '🌙 Dinner'}
@@ -350,14 +350,14 @@ export default function FoodMess() {
         {/* Menu Items Grid */}
         {loadingMenu ? (
           <div className="flex flex-col items-center justify-center py-20">
-            <Loader2 className="w-10 h-10 animate-spin text-primary-500 mb-3" />
-            <p className="text-slate-400 text-sm">Fetching fresh mess menu...</p>
+            <Loader2 className="w-10 h-10 animate-spin text-[#776BFD] mb-3" />
+            <p className="text-[#636363] text-sm font-medium">Fetching fresh mess menu...</p>
           </div>
         ) : filteredItems.length === 0 ? (
-          <div className="text-center py-20 bg-slate-900/40 border border-slate-800 rounded-3xl p-8 max-w-md mx-auto">
-            <UtensilsCrossed className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-            <h3 className="text-lg font-bold text-white">No items found</h3>
-            <p className="text-slate-400 text-sm mt-1">
+          <div className="text-center py-20 bg-[#FDFDFD] border border-[#DFDFE0] rounded-3xl p-8 max-w-md mx-auto shadow-sm">
+            <UtensilsCrossed className="w-12 h-12 text-[#B6ADC3] mx-auto mb-3" />
+            <h3 className="text-lg font-bold text-[#18181B]">No items found</h3>
+            <p className="text-[#636363] text-sm mt-1">
               No menu items matching "{selectedDietary}" for {activeMeal.toLowerCase()}.
             </p>
           </div>
@@ -369,28 +369,28 @@ export default function FoodMess() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.04 }}
-                className="bg-slate-900/90 border border-slate-850 hover:border-slate-700 rounded-2xl p-5 transition-all shadow-md flex flex-col justify-between"
+                className="bg-[#FDFDFD] border border-[#DFDFE0] hover:border-[#B6ADC3] rounded-3xl p-5 transition-all shadow-xs flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-start justify-between mb-2">
-                    <h4 className="text-base font-bold text-white leading-tight">
+                    <h4 className="text-base font-bold text-[#18181B] leading-tight">
                       {item.itemName}
                     </h4>
                     {item.price && (
-                      <span className="text-sm font-extrabold text-primary-400 ml-2">
+                      <span className="text-sm font-black text-[#776BFD] ml-2">
                         ₹{item.price}
                       </span>
                     )}
                   </div>
 
-                  <p className="text-xs text-slate-400 line-clamp-2 mb-4">
+                  <p className="text-xs text-[#636363] line-clamp-2 mb-4 leading-relaxed font-medium">
                     {item.description || 'Prepared fresh daily as per university mess quality standards.'}
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                <div className="pt-3 border-t border-[#DFDFE0] flex items-center justify-between">
                   {getDietaryBadge(item.dietaryTag)}
-                  <span className="text-[11px] text-slate-500">
+                  <span className="text-[11px] text-[#636363] font-medium">
                     {activeMeal}
                   </span>
                 </div>

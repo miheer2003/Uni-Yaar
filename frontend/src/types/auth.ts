@@ -1,4 +1,4 @@
-export type UserRole = 'ROLE_STUDENT' | 'ROLE_FACULTY' | 'ROLE_STAFF' | 'ROLE_ADMIN';
+export type UserRole = 'ROLE_STUDENT' | 'ROLE_FACULTY' | 'ROLE_FOOD_STAFF' | 'ROLE_ADMIN';
 export type Role = UserRole;
 
 export interface User {
@@ -20,6 +20,7 @@ export interface AuthResponse {
 export interface LoginRequest {
   email: string;
   password: string;
+  rememberMe?: boolean;
 }
 
 export interface RegisterRequest {

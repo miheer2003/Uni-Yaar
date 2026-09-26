@@ -203,16 +203,16 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen: propIsOp
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-slate-950/80 backdrop-blur-md">
+        <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-black/25 backdrop-blur-xs font-sans">
           <motion.div
             initial={{ opacity: 0, scale: 0.96, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: -10 }}
-            className="w-full max-w-2xl bg-slate-900 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh]"
+            className="w-full max-w-2xl bg-[#FDFDFD] border border-[#DFDFE0] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh]"
           >
             {/* Search Input Bar */}
-            <div className="relative flex items-center px-5 py-4 border-b border-slate-800">
-              <Search className="w-5 h-5 text-slate-400 mr-3 shrink-0" />
+            <div className="relative flex items-center px-5 py-4 border-b border-[#DFDFE0]">
+              <Search className="w-5 h-5 text-[#776BFD] mr-3 shrink-0" />
               <input
                 ref={inputRef}
                 type="text"
@@ -220,19 +220,19 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen: propIsOp
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Search anything: 'Auditorium', 'Dr. Sharma', 'Mess Menu', 'Hackathon'..."
-                className="w-full bg-transparent text-white placeholder-slate-500 text-base focus:outline-none"
+                className="w-full bg-transparent text-[#18181B] placeholder-[#636363]/60 text-base focus:outline-none font-medium"
               />
               {loading ? (
-                <div className="w-5 h-5 border-2 border-primary-500 border-t-transparent rounded-full animate-spin shrink-0" />
+                <div className="w-5 h-5 border-2 border-[#776BFD] border-t-transparent rounded-full animate-spin shrink-0" />
               ) : query ? (
                 <button
                   onClick={() => setQuery('')}
-                  className="p-1 text-slate-500 hover:text-slate-300 rounded-lg shrink-0"
+                  className="p-1 text-[#636363] hover:text-[#18181B] rounded-lg shrink-0 cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
               ) : (
-                <div className="hidden sm:flex items-center space-x-1 px-2 py-1 rounded-md bg-slate-800 text-[11px] font-semibold text-slate-400 shrink-0">
+                <div className="hidden sm:flex items-center space-x-1 px-2.5 py-1 rounded-lg bg-[#DFDFE0]/50 text-xs font-bold text-[#636363] shrink-0 font-mono">
                   <Command className="w-3 h-3" />
                   <span>K</span>
                 </div>
@@ -240,12 +240,12 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen: propIsOp
             </div>
 
             {/* Results or Empty State */}
-            <div className="flex-1 overflow-y-auto p-3 scrollbar-thin">
+            <div className="flex-1 overflow-y-auto p-3.5 custom-scrollbar">
               {query && results.length === 0 && !loading && (
-                <div className="py-12 text-center text-slate-400">
-                  <Search className="w-10 h-10 text-slate-600 mx-auto mb-2" />
-                  <p className="text-sm font-semibold text-white">No campus matches found for "{query}"</p>
-                  <p className="text-xs text-slate-500 mt-1">
+                <div className="py-12 text-center text-[#636363]">
+                  <Search className="w-10 h-10 text-[#B6ADC3] mx-auto mb-2" />
+                  <p className="text-base font-bold text-[#18181B]">No campus matches found for "{query}"</p>
+                  <p className="text-xs text-[#636363] mt-1 font-medium">
                     Try searching by professor name, room code, canteen, or upcoming event.
                   </p>
                 </div>
@@ -253,10 +253,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen: propIsOp
 
               {/* Suggestions / Shortcuts when query is empty */}
               {!query && (
-                <div className="p-3">
+                <div className="p-2 space-y-5">
                   {recentSearches.length > 0 && (
-                    <div className="mb-5">
-                      <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 px-3 mb-2">
+                    <div>
+                      <div className="text-[11px] font-bold uppercase tracking-wider text-[#636363] px-2 mb-2">
                         Recent Searches
                       </div>
                       <div className="flex flex-wrap gap-2 px-1">
@@ -264,7 +264,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen: propIsOp
                           <button
                             key={i}
                             onClick={() => setQuery(term)}
-                            className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 hover:text-white transition-colors"
+                            className="px-3 py-1.5 rounded-xl bg-[#DFDFE0]/40 hover:bg-[#DFDFE0] text-xs font-semibold text-[#18181B] transition-colors cursor-pointer"
                           >
                             {term}
                           </button>
@@ -274,10 +274,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen: propIsOp
                   )}
 
                   <div>
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 px-3 mb-2">
+                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#636363] px-2 mb-2">
                       Quick Campus Jumps
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       {QUICK_JUMPS.map((jump, idx) => {
                         const Icon = jump.icon;
                         return (
@@ -287,18 +287,18 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen: propIsOp
                               handleClose();
                               navigate(jump.url);
                             }}
-                            className="flex items-center justify-between p-3 rounded-2xl bg-slate-950/60 hover:bg-slate-800/80 border border-slate-800/60 hover:border-slate-700 transition-all text-left"
+                            className="flex items-center justify-between p-3.5 rounded-2xl bg-white hover:bg-[#DFDFE0]/20 border border-[#DFDFE0] hover:border-[#776BFD]/40 transition-all text-left shadow-2xs cursor-pointer"
                           >
                             <div className="flex items-center space-x-3">
-                              <div className={`p-2 rounded-xl ${jump.bgColor} ${jump.textColor}`}>
+                              <div className="p-2 rounded-xl bg-[#776BFD]/10 text-[#776BFD]">
                                 <Icon className="w-4 h-4" />
                               </div>
                               <div>
-                                <div className="text-xs font-bold text-white">{jump.title}</div>
-                                <div className="text-[11px] text-slate-400">{jump.subtitle}</div>
+                                <div className="text-xs font-bold text-[#18181B]">{jump.title}</div>
+                                <div className="text-[11px] text-[#636363] font-medium">{jump.subtitle}</div>
                               </div>
                             </div>
-                            <ArrowRight className="w-3.5 h-3.5 text-slate-600" />
+                            <ArrowRight className="w-3.5 h-3.5 text-[#636363]" />
                           </button>
                         );
                       })}
@@ -310,7 +310,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen: propIsOp
               {/* Search Results List */}
               {results.length > 0 && (
                 <div className="space-y-1">
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 px-3 py-1.5 flex items-center justify-between">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-[#636363] px-3 py-1.5 flex items-center justify-between">
                     <span>Search Results ({results.length})</span>
                     <span>Use ↑↓ to navigate</span>
                   </div>
@@ -327,16 +327,16 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen: propIsOp
                         onMouseEnter={() => setSelectedIndex(index)}
                         className={`group flex items-center justify-between p-3 rounded-2xl cursor-pointer transition-all ${
                           isSelected
-                            ? 'bg-primary-500/15 border border-primary-500/30'
-                            : 'hover:bg-slate-800/50 border border-transparent'
+                            ? 'bg-[#776BFD]/10 border border-[#776BFD]/30'
+                            : 'hover:bg-[#DFDFE0]/30 border border-transparent'
                         }`}
                       >
                         <div className="flex items-center space-x-3.5 flex-1 min-w-0">
                           <div
                             className={`p-2.5 rounded-xl shrink-0 ${
                               isSelected
-                                ? 'bg-primary-500 text-slate-950 font-bold'
-                                : 'bg-slate-800 text-slate-400 group-hover:text-white'
+                                ? 'bg-[#776BFD] text-white font-bold'
+                                : 'bg-[#DFDFE0]/60 text-[#636363] group-hover:text-[#18181B]'
                             }`}
                           >
                             <Icon className="w-4 h-4" />
@@ -344,14 +344,14 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen: propIsOp
 
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center space-x-2">
-                              <h4 className="text-sm font-bold text-white truncate">{item.title}</h4>
-                              <span className="text-[10px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-800 text-primary-400 border border-slate-700 shrink-0">
+                              <h4 className="text-sm font-bold text-[#18181B] truncate">{item.title}</h4>
+                              <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#DFDFE0]/60 text-[#636363] shrink-0">
                                 {item.badge}
                               </span>
                             </div>
-                            <p className="text-xs text-slate-400 truncate mt-0.5">{item.subtitle}</p>
+                            <p className="text-xs text-[#636363] truncate mt-0.5 font-medium">{item.subtitle}</p>
                             {item.details && (
-                              <p className="text-[11px] text-slate-500 truncate mt-0.5">{item.details}</p>
+                              <p className="text-[11px] text-[#636363]/80 truncate mt-0.5">{item.details}</p>
                             )}
                           </div>
                         </div>
@@ -359,23 +359,23 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen: propIsOp
                         <div className="flex items-center space-x-2 ml-3 shrink-0">
                           <button
                             onClick={(e) => toggleBookmark(e, item)}
-                            className={`p-1.5 rounded-lg transition-colors ${
+                            className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
                               isBookmarked
-                                ? 'text-amber-400'
-                                : 'text-slate-600 hover:text-slate-300'
+                                ? 'text-[#F86B7E]'
+                                : 'text-[#636363] hover:text-[#18181B]'
                             }`}
                             title={isBookmarked ? 'Saved to Bookmarks' : 'Save Bookmark'}
                           >
                             <BookmarkIcon
-                              className={`w-4 h-4 ${isBookmarked ? 'fill-amber-400' : ''}`}
+                              className={`w-4 h-4 ${isBookmarked ? 'fill-[#F86B7E]' : ''}`}
                             />
                           </button>
 
                           <div
-                            className={`flex items-center space-x-1 text-xs font-semibold px-2 py-1 rounded-lg ${
+                            className={`flex items-center space-x-1 text-xs font-bold px-2 py-1 rounded-lg ${
                               isSelected
-                                ? 'bg-primary-500 text-slate-950'
-                                : 'text-slate-500 opacity-0 group-hover:opacity-100'
+                                ? 'bg-[#776BFD] text-white'
+                                : 'text-[#636363] opacity-0 group-hover:opacity-100'
                             }`}
                           >
                             <span>Open</span>
@@ -390,23 +390,23 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen: propIsOp
             </div>
 
             {/* Modal Footer Hotkeys Bar */}
-            <div className="px-5 py-3 bg-slate-950/80 border-t border-slate-800 flex items-center justify-between text-xs text-slate-500">
+            <div className="px-5 py-3 bg-[#DFDFE0]/30 border-t border-[#DFDFE0] flex items-center justify-between text-xs text-[#636363]">
               <div className="flex items-center space-x-4">
                 <span className="flex items-center space-x-1">
-                  <kbd className="px-1.5 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300 font-mono">↑</kbd>
-                  <kbd className="px-1.5 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300 font-mono">↓</kbd>
-                  <span>to navigate</span>
+                  <kbd className="px-1.5 py-0.5 rounded bg-white border border-[#DFDFE0] text-[10px] text-[#636363] font-mono shadow-2xs">↑</kbd>
+                  <kbd className="px-1.5 py-0.5 rounded bg-white border border-[#DFDFE0] text-[10px] text-[#636363] font-mono shadow-2xs">↓</kbd>
+                  <span className="font-medium">to navigate</span>
                 </span>
                 <span className="flex items-center space-x-1">
-                  <kbd className="px-1.5 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300 font-mono">↵</kbd>
-                  <span>to select</span>
+                  <kbd className="px-1.5 py-0.5 rounded bg-white border border-[#DFDFE0] text-[10px] text-[#636363] font-mono shadow-2xs">↵</kbd>
+                  <span className="font-medium">to select</span>
                 </span>
                 <span className="flex items-center space-x-1">
-                  <kbd className="px-1.5 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300 font-mono">esc</kbd>
-                  <span>to close</span>
+                  <kbd className="px-1.5 py-0.5 rounded bg-white border border-[#DFDFE0] text-[10px] text-[#636363] font-mono shadow-2xs">esc</kbd>
+                  <span className="font-medium">to close</span>
                 </span>
               </div>
-              <span className="hidden sm:inline text-slate-600 text-[11px]">UniYaar Omnisearch</span>
+              <span className="hidden sm:inline text-[#636363] text-[11px] font-semibold">UniYaar Omnisearch</span>
             </div>
           </motion.div>
         </div>

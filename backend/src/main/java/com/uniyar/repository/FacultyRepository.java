@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface FacultyRepository extends JpaRepository<Faculty, Long> {
@@ -24,4 +25,5 @@ public interface FacultyRepository extends JpaRepository<Faculty, Long> {
                                Pageable pageable);
 
     List<Faculty> findByDepartmentId(Long departmentId);
+    Optional<Faculty> findByUserId(Long userId);
 }

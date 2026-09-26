@@ -25,6 +25,7 @@ import java.util.List;
 public class AdminController {
 
     private final AdminService adminService;
+    private final com.uniyar.service.EventService eventService;
     private final EventRepository eventRepository;
     private final AnnouncementRepository announcementRepository;
     private final MaintenanceNoticeRepository maintenanceNoticeRepository;
@@ -100,5 +101,17 @@ public class AdminController {
         }
         Announcement saved = announcementRepository.save(announcement);
         return ResponseEntity.ok(ApiResponse.success(AnnouncementResponse.fromEntity(saved), "Announcement broadcasted successfully"));
+    }
+
+    @DeleteMapping("/announcements/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteAnnouncement(@PathVariable Long id) {
+        announcementRepository.deleteById(id);
+        return ResponseEntity.ok(ApiResponse.success(null, "Announcement deleted"));
+    }
+
+    @DeleteMapping("/events/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteAdminEvent(@PathVariable Long id) {
+        eventService.deleteEvent(id);
+        return ResponseEntity.ok(ApiResponse.success(null, "Event deleted"));
     }
 }

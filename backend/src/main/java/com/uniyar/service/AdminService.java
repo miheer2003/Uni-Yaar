@@ -25,6 +25,7 @@ public class AdminService {
     private final BuildingRepository buildingRepository;
     private final RoomRepository roomRepository;
     private final FacultyRepository facultyRepository;
+    private final DepartmentRepository departmentRepository;
     private final MaintenanceNoticeRepository maintenanceNoticeRepository;
     private final IssueReportRepository issueReportRepository;
     private final EventRepository eventRepository;
@@ -73,6 +74,25 @@ public class AdminService {
 
         user.setRole(newRole);
         User saved = userRepository.save(user);
+
+        if (newRole == UserRole.ROLE_FACULTY) {
+            boolean hasProfile = facultyRepository.findByUserId(user.getId()).isPresent();
+            if (!hasProfile) {
+                com.uniyar.entity.Department dept = departmentRepository.findAll().stream().findFirst().orElse(null);
+                if (dept != null) {
+                    com.uniyar.entity.Faculty faculty = com.uniyar.entity.Faculty.builder()
+                            .user(saved)
+                            .department(dept)
+                            .designation("New Faculty Member")
+                            .subjects("To be assigned")
+                            .bio("Faculty profile pending update.")
+                            .build();
+                    facultyRepository.save(faculty);
+                    log.info("Created new empty faculty profile for user {}", saved.getEmail());
+                }
+            }
+        }
+
         log.info("Updated role for user {} to {}", saved.getEmail(), saved.getRole());
         return AdminUserResponse.fromEntity(saved);
     }

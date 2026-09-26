@@ -2,6 +2,7 @@ package com.uniyar.controller;
 
 import com.uniyar.dto.ApiResponse;
 import com.uniyar.dto.auth.AuthRequest;
+import com.uniyar.dto.auth.LoginRequest;
 import com.uniyar.dto.auth.AuthResponse;
 import com.uniyar.entity.User;
 import com.uniyar.security.JwtTokenProvider;
@@ -53,7 +54,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<AuthResponse>> login(@Valid @RequestBody AuthRequest request) {
+    public ResponseEntity<ApiResponse<AuthResponse>> login(@Valid @RequestBody LoginRequest request) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
@@ -76,5 +77,14 @@ public class AuthController {
                     .status(HttpStatus.UNAUTHORIZED)
                     .body(ApiResponse.error("Invalid email or password", HttpStatus.UNAUTHORIZED));
         }
+    }
+
+    /** Used by the client to restore an existing JWT session after a refresh. */
+    @GetMapping("/profile")
+    public ResponseEntity<ApiResponse<AuthResponse>> profile(Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        return ResponseEntity.ok(ApiResponse.success(new AuthResponse(
+                null, user.getId(), user.getEmail(), user.getFullName(), user.getRole().name()
+        ), "Profile retrieved"));
     }
 }

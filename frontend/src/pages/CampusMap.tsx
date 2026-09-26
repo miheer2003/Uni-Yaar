@@ -260,10 +260,10 @@ export default function CampusMap() {
   ];
 
   return (
-    <div className="relative w-full h-[calc(100vh-4rem)] bg-slate-950 overflow-hidden flex flex-col">
+    <div className="relative w-full h-[calc(100vh-4rem)] bg-[#DFDFE0] overflow-hidden flex flex-col">
       {/* Category Pills Overlay */}
       <div className="absolute top-4 left-4 right-4 z-[1000] flex items-center justify-between pointer-events-none">
-        <div className="flex items-center space-x-2 bg-slate-950/80 backdrop-blur-md p-1.5 rounded-2xl border border-slate-800 shadow-2xl pointer-events-auto overflow-x-auto scrollbar-none">
+        <div className="flex items-center space-x-2 bg-[#FDFDFD]/90 backdrop-blur-md p-1.5 rounded-2xl border border-[#DFDFE0] shadow-sm pointer-events-auto overflow-x-auto scrollbar-none">
           {categories.map((cat) => {
             const isSelected = selectedCategory === cat.value;
             const Icon = cat.icon;
@@ -271,10 +271,10 @@ export default function CampusMap() {
               <button
                 key={cat.value}
                 onClick={() => setSelectedCategory(cat.value)}
-                className={`flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                className={`flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-primary-500 text-slate-950 shadow-md shadow-primary-500/30'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                    ? 'bg-[#776BFD] text-white shadow-md shadow-[#776BFD]/25'
+                    : 'text-[#636363] hover:text-[#18181B] hover:bg-[#DFDFE0]/50'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -285,7 +285,7 @@ export default function CampusMap() {
           
           <Link
             to="/"
-            className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all ml-2 border-l border-slate-700 pl-4"
+            className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-[#636363] hover:text-[#18181B] hover:bg-[#DFDFE0]/50 transition-all ml-2 border-l border-[#DFDFE0] pl-4"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back</span>
@@ -295,7 +295,7 @@ export default function CampusMap() {
         {activeRoute && (
           <button
             onClick={() => setActiveRoute(null)}
-            className="pointer-events-auto px-3.5 py-2 bg-rose-500/90 hover:bg-rose-600 text-white text-xs font-bold rounded-xl shadow-lg flex items-center space-x-1.5 transition-all"
+            className="pointer-events-auto px-4 py-2 bg-[#F86B7E] hover:bg-[#EE495F] text-white text-xs font-bold rounded-2xl shadow-md shadow-[#F86B7E]/25 flex items-center space-x-1.5 transition-all cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Exit Navigation</span>
@@ -343,8 +343,8 @@ export default function CampusMap() {
               >
                 <Popup className="custom-popup">
                   <div className="p-1">
-                    <p className="font-bold text-sm text-slate-900">{marker.title}</p>
-                    <p className="text-xs text-slate-600 mt-0.5">{marker.category}</p>
+                    <p className="font-bold text-sm text-[#18181B]">{marker.title}</p>
+                    <p className="text-xs text-[#636363] mt-0.5">{marker.category}</p>
                   </div>
                 </Popup>
               </Marker>
@@ -387,38 +387,38 @@ export default function CampusMap() {
             initial={{ y: 200, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 200, opacity: 0 }}
-            className="absolute bottom-6 left-4 right-4 sm:left-auto sm:right-6 sm:w-96 z-[1000] bg-slate-900/95 backdrop-blur-xl border border-slate-800 rounded-3xl p-6 shadow-2xl"
+            className="absolute bottom-6 left-4 right-4 sm:left-auto sm:right-6 sm:w-96 z-[1000] bg-[#FDFDFD]/95 backdrop-blur-xl border border-[#DFDFE0] rounded-3xl p-6 shadow-2xl text-[#18181B]"
           >
             <div className="flex items-start justify-between">
               <div>
-                <span className="px-2.5 py-0.5 bg-primary-500/20 text-primary-400 text-[11px] font-bold rounded-md uppercase tracking-wider">
+                <span className="px-2.5 py-0.5 bg-[#776BFD]/10 text-[#776BFD] text-[11px] font-bold rounded-lg uppercase tracking-wider">
                   {selectedMarker.category}
                 </span>
-                <h3 className="text-xl font-extrabold text-white mt-2 leading-tight">
+                <h3 className="text-xl font-black text-[#18181B] mt-2 leading-tight">
                   {selectedMarker.title}
                 </h3>
               </div>
               <button
                 onClick={() => setSelectedMarker(null)}
-                className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
+                className="p-1.5 text-[#636363] hover:text-[#18181B] rounded-xl hover:bg-[#DFDFE0]/50 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <p className="text-xs text-slate-400 mt-2.5 leading-relaxed">
+            <p className="text-xs text-[#636363] mt-2.5 leading-relaxed font-medium">
               {selectedMarker.description || 'Verified campus destination with indoor directory.'}
             </p>
 
             {/* Coordinates / Metadata */}
-            <div className="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-slate-800 text-xs">
-              <div className="flex items-center space-x-1.5 text-slate-400">
-                <MapPin className="w-3.5 h-3.5 text-primary-400" />
+            <div className="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-[#DFDFE0] text-xs">
+              <div className="flex items-center space-x-1.5 text-[#636363] font-medium">
+                <MapPin className="w-3.5 h-3.5 text-[#776BFD]" />
                 <span>{selectedMarker.latitude.toFixed(4)}, {selectedMarker.longitude.toFixed(4)}</span>
               </div>
-              <div className="flex items-center space-x-1.5 text-slate-400">
-                <Layers className="w-3.5 h-3.5 text-accent-400" />
-                <span>Status: <strong className="text-emerald-400">{selectedMarker.status}</strong></span>
+              <div className="flex items-center space-x-1.5 text-[#636363] font-medium">
+                <Layers className="w-3.5 h-3.5 text-[#776BFD]" />
+                <span>Status: <strong className="text-emerald-600">{selectedMarker.status}</strong></span>
               </div>
             </div>
 
@@ -426,7 +426,7 @@ export default function CampusMap() {
             <div className="flex items-center space-x-2 mt-5">
               <button
                 onClick={() => handleStartNavigation(selectedMarker)}
-                className="flex-1 btn-primary py-2.5 px-4 rounded-xl flex items-center justify-center space-x-2 text-xs font-bold shadow-md shadow-primary-500/25"
+                className="flex-1 btn-primary py-2.5 px-4 rounded-2xl flex items-center justify-center space-x-2 text-xs font-bold shadow-md shadow-[#776BFD]/25"
               >
                 <Navigation className="w-3.5 h-3.5" />
                 <span>Navigate Route</span>
@@ -435,7 +435,7 @@ export default function CampusMap() {
               {selectedMarker.buildingId && (
                 <Link
                   to={`/buildings/${selectedMarker.buildingId}`}
-                  className="btn-secondary py-2.5 px-4 rounded-xl flex items-center justify-center space-x-1.5 text-xs font-bold"
+                  className="btn-secondary py-2.5 px-4 rounded-2xl flex items-center justify-center space-x-1.5 text-xs font-bold"
                 >
                   <span>Floors</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -453,35 +453,35 @@ export default function CampusMap() {
             initial={{ y: -80, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -80, opacity: 0 }}
-            className="absolute top-20 left-4 right-4 sm:left-6 sm:w-96 z-[1000] bg-slate-900/95 backdrop-blur-xl border border-primary-500/40 rounded-3xl p-5 shadow-2xl"
+            className="absolute top-20 left-4 right-4 sm:left-6 sm:w-96 z-[1000] bg-[#FDFDFD]/95 backdrop-blur-xl border border-[#776BFD]/30 rounded-3xl p-5 shadow-2xl text-[#18181B]"
           >
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 rounded-xl bg-primary-500/20 text-primary-400 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-xl bg-[#776BFD]/10 text-[#776BFD] flex items-center justify-center">
                   <Footprints className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-white leading-tight">Walking Navigation</h4>
-                  <p className="text-[11px] text-slate-400">To: {activeRoute.destinationName}</p>
+                  <h4 className="text-sm font-black text-[#18181B] leading-tight">Walking Navigation</h4>
+                  <p className="text-[11px] text-[#636363] font-medium">To: {activeRoute.destinationName}</p>
                 </div>
               </div>
             </div>
 
             {/* Metric badges */}
-            <div className="flex items-center space-x-4 bg-slate-950/60 p-3 rounded-2xl border border-slate-800/80 mb-3 text-xs">
+            <div className="flex items-center space-x-4 bg-[#DFDFE0]/40 p-3 rounded-2xl border border-[#DFDFE0] mb-3 text-xs">
               <div className="flex items-center space-x-1.5">
-                <Footprints className="w-4 h-4 text-primary-400" />
-                <span className="text-white font-bold">{activeRoute.distanceMeters} m</span>
+                <Footprints className="w-4 h-4 text-[#776BFD]" />
+                <span className="text-[#18181B] font-bold">{activeRoute.distanceMeters} m</span>
               </div>
               <div className="flex items-center space-x-1.5">
-                <Clock className="w-4 h-4 text-accent-400" />
-                <span className="text-white font-bold">{activeRoute.walkingMinutes} min walk</span>
+                <Clock className="w-4 h-4 text-[#F86B7E]" />
+                <span className="text-[#18181B] font-bold">{activeRoute.walkingMinutes} min walk</span>
               </div>
             </div>
 
             {/* Step 1 direction */}
-            <div className="text-xs text-slate-300 bg-slate-800/40 p-2.5 rounded-xl border border-slate-700/50">
-              <strong className="text-primary-400 block mb-0.5">Next step:</strong>
+            <div className="text-xs text-[#636363] bg-[#DFDFE0]/30 p-2.5 rounded-xl border border-[#DFDFE0] font-medium">
+              <strong className="text-[#776BFD] block mb-0.5 font-bold">Next step:</strong>
               {activeRoute.steps[0]?.instruction}
             </div>
           </motion.div>

@@ -14,14 +14,14 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+      <div className="min-h-screen bg-[#DFDFE0] flex items-center justify-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="flex flex-col items-center space-x-3"
+          className="flex flex-col items-center space-y-3"
         >
-          <Loader2 className="w-8 h-8 animate-spin text-primary-500" />
-          <p className="text-slate-400">Loading...</p>
+          <Loader2 className="w-8 h-8 animate-spin text-[#776BFD]" />
+          <p className="text-sm font-medium text-[#636363]">Loading...</p>
         </motion.div>
       </div>
     );
@@ -43,14 +43,14 @@ export function PublicRoute({ children }: { children: React.ReactNode }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+      <div className="min-h-screen bg-[#DFDFE0] flex items-center justify-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           className="flex flex-col items-center space-y-4"
         >
-          <Loader2 className="w-8 h-8 animate-spin text-primary-500" />
-          <p className="text-slate-400">Loading...</p>
+          <Loader2 className="w-8 h-8 animate-spin text-[#776BFD]" />
+          <p className="text-sm font-medium text-[#636363]">Loading...</p>
         </motion.div>
       </div>
     );

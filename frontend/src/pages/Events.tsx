@@ -109,6 +109,20 @@ export const Events: React.FC = () => {
     }
   };
 
+  const handleDeregister = async (eventId: number) => {
+    setRegistering(true);
+    try {
+      await eventApi.deregister(eventId);
+      setRegisteredEvents((prev) => ({ ...prev, [eventId]: false }));
+      setEvents((prev) => prev.map((event) => event.id === eventId ? { ...event, registeredCount: Math.max(0, event.registeredCount - 1) } : event));
+      if (selectedEvent?.id === eventId) setSelectedEvent({ ...selectedEvent, registeredCount: Math.max(0, selectedEvent.registeredCount - 1) });
+    } catch {
+      alert("Could not deregister from event. Please try again.");
+    } finally {
+      setRegistering(false);
+    }
+  };
+
   const handleShare = (event: EventItem) => {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(`${window.location.origin}/events?id=${event.id}`);
@@ -133,14 +147,14 @@ export const Events: React.FC = () => {
   const featuredEvents = events.filter((e) => e.isFeatured);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 py-10 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#DFDFE0] text-[#18181B] py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header Banner */}
         <div className="text-center max-w-3xl mx-auto mb-10">
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center space-x-2 px-3 py-1 bg-amber-500/10 border border-amber-500/20 rounded-full text-amber-400 text-xs font-semibold uppercase tracking-wider mb-4"
+            className="inline-flex items-center space-x-2 px-3.5 py-1 bg-[#FDFDFD] border border-[#DFDFE0] rounded-full text-[#776BFD] text-xs font-semibold uppercase tracking-wider mb-4 shadow-xs"
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span>Campus Life & Happenings</span>
@@ -148,14 +162,14 @@ export const Events: React.FC = () => {
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight"
+            className="text-4xl sm:text-5xl font-black text-[#18181B] tracking-tight"
           >
-            UniYaar <span className="gradient-text">Events & Fests</span>
+            UniYaar <span className="bg-gradient-to-r from-[#776BFD] to-[#F86B7E] bg-clip-text text-transparent">Events & Fests</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-3 text-lg text-slate-400"
+            className="mt-3 text-lg text-[#636363] font-medium"
           >
             Don't miss hackathons, club workshops, guest lectures, and cultural fests. Instant RSVP and map directions.
           </motion.p>
@@ -165,39 +179,39 @@ export const Events: React.FC = () => {
         {featuredEvents.length > 0 && (
           <div className="mb-12">
             <div className="flex items-center space-x-2 mb-4">
-              <Flame className="w-5 h-5 text-amber-400" />
-              <h2 className="text-xl font-bold text-white tracking-wide">Spotlight Event</h2>
+              <Flame className="w-5 h-5 text-[#F86B7E]" />
+              <h2 className="text-xl font-black text-[#18181B] tracking-wide">Spotlight Event</h2>
             </div>
-            <div className="relative rounded-3xl overflow-hidden border border-amber-500/30 bg-gradient-to-r from-amber-950/40 via-slate-900 to-indigo-950/40 p-6 sm:p-8 backdrop-blur-xl shadow-2xl">
+            <div className="relative rounded-3xl overflow-hidden border border-[#DFDFE0] bg-[#FDFDFD] p-6 sm:p-8 shadow-sm">
               <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
                 <div className="max-w-2xl">
                   <div className="flex items-center space-x-3 mb-3">
-                    <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500 text-slate-950 flex items-center space-x-1">
+                    <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#776BFD]/10 text-[#776BFD] border border-[#776BFD]/20 flex items-center space-x-1">
                       <Trophy className="w-3.5 h-3.5" />
                       <span>{featuredEvents[0].category}</span>
                     </span>
-                    <span className="flex items-center space-x-1.5 text-xs font-bold px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 animate-pulse">
+                    <span className="flex items-center space-x-1.5 text-xs font-bold px-2.5 py-1 rounded-full bg-[#F86B7E]/10 text-[#F86B7E] border border-[#F86B7E]/20 animate-pulse">
                       <Radio className="w-3 h-3" />
                       <span>{featuredEvents[0].status === 'LIVE_NOW' ? 'LIVE NOW' : 'FEATURED EVENT'}</span>
                     </span>
                   </div>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">
+                  <h3 className="text-2xl sm:text-3xl font-black text-[#18181B] mb-2">
                     {featuredEvents[0].title}
                   </h3>
-                  <p className="text-sm text-slate-300 line-clamp-2 mb-4">
+                  <p className="text-sm text-[#636363] line-clamp-2 mb-4 leading-relaxed font-medium">
                     {featuredEvents[0].description}
                   </p>
-                  <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400">
+                  <div className="flex flex-wrap items-center gap-4 text-xs text-[#636363] font-medium">
                     <div className="flex items-center space-x-1.5">
-                      <Calendar className="w-4 h-4 text-amber-400" />
+                      <Calendar className="w-4 h-4 text-[#776BFD]" />
                       <span>{formatDate(featuredEvents[0].startsAt)}</span>
                     </div>
                     <div className="flex items-center space-x-1.5">
-                      <Clock className="w-4 h-4 text-indigo-400" />
+                      <Clock className="w-4 h-4 text-[#B6ADC3]" />
                       <span>{formatTimeRange(featuredEvents[0].startsAt, featuredEvents[0].endsAt)}</span>
                     </div>
                     <div className="flex items-center space-x-1.5">
-                      <MapPin className="w-4 h-4 text-rose-400" />
+                      <MapPin className="w-4 h-4 text-[#F86B7E]" />
                       <span>{featuredEvents[0].locationName || featuredEvents[0].buildingName}</span>
                     </div>
                   </div>
@@ -206,7 +220,7 @@ export const Events: React.FC = () => {
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
                   <button
                     onClick={() => setSelectedEvent(featuredEvents[0])}
-                    className="px-6 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold rounded-2xl shadow-lg shadow-amber-500/20 transition-all flex items-center justify-center space-x-2"
+                    className="btn-primary flex items-center justify-center space-x-2"
                   >
                     <Ticket className="w-4 h-4" />
                     <span>View & Register</span>
@@ -219,9 +233,9 @@ export const Events: React.FC = () => {
                         navigate('/map');
                       }
                     }}
-                    className="px-5 py-3.5 bg-slate-800/80 hover:bg-slate-700 text-white font-semibold rounded-2xl border border-slate-700 transition-all flex items-center justify-center space-x-2"
+                    className="btn-secondary flex items-center justify-center space-x-2"
                   >
-                    <MapPin className="w-4 h-4 text-rose-400" />
+                    <MapPin className="w-4 h-4 text-[#776BFD]" />
                     <span>Locate Venue</span>
                   </button>
                 </div>
@@ -231,22 +245,22 @@ export const Events: React.FC = () => {
         )}
 
         {/* Search & Filters Section */}
-        <div className="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 mb-8 backdrop-blur-xl">
+        <div className="bg-[#FDFDFD] border border-[#DFDFE0] rounded-3xl p-6 mb-8 shadow-sm">
           <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-6">
             {/* Search Input */}
             <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#636363]" />
               <input
                 type="text"
                 placeholder="Search events, workshops, hackathons, organizers..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-11 pr-4 py-3 bg-slate-950/80 border border-slate-800 rounded-2xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full pl-11 pr-4 py-3 bg-[#FDFDFD] border border-[#DFDFE0] rounded-2xl text-sm text-[#18181B] placeholder-[#636363]/60 focus:outline-none focus:ring-2 focus:ring-[#776BFD]/20 focus:border-[#776BFD]"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#636363] hover:text-[#18181B] cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -259,10 +273,10 @@ export const Events: React.FC = () => {
                 <button
                   key={st}
                   onClick={() => setStatusFilter(st)}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                  className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                     statusFilter === st
-                      ? 'bg-primary-500 text-white shadow-md shadow-primary-500/20'
-                      : 'bg-slate-800/60 text-slate-400 hover:text-white hover:bg-slate-800'
+                      ? 'bg-[#776BFD] text-white shadow-md shadow-[#776BFD]/25'
+                      : 'bg-[#FDFDFD] text-[#636363] border border-[#DFDFE0] hover:text-[#18181B] hover:border-[#B6ADC3]'
                   }`}
                 >
                   {st === 'ALL' ? 'All Status' : st === 'LIVE_NOW' ? '🔴 Live Now' : st === 'UPCOMING' ? '⚡ Upcoming' : '✓ Completed'}
@@ -280,13 +294,13 @@ export const Events: React.FC = () => {
                 <button
                   key={cat.value}
                   onClick={() => setSelectedCategory(cat.value)}
-                  className={`flex items-center space-x-2 px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition-all duration-200 ${
+                  className={`flex items-center space-x-2 px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                     isSelected
-                      ? 'bg-white text-slate-950 shadow-lg'
-                      : 'bg-slate-950/80 text-slate-400 hover:text-white border border-slate-800/80 hover:border-slate-700'
+                      ? 'bg-[#776BFD] text-white shadow-md shadow-[#776BFD]/25'
+                      : 'bg-[#FDFDFD] text-[#636363] border border-[#DFDFE0] hover:text-[#18181B] hover:border-[#B6ADC3]'
                   }`}
                 >
-                  <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-primary-600' : 'text-slate-400'}`} />
+                  <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-white' : 'text-[#636363]'}`} />
                   <span>{cat.label}</span>
                 </button>
               );
@@ -298,20 +312,20 @@ export const Events: React.FC = () => {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map((n) => (
-              <div key={n} className="bg-slate-900 border border-slate-800 rounded-3xl p-6 h-80 animate-pulse">
-                <div className="h-4 bg-slate-800 rounded w-1/3 mb-4" />
-                <div className="h-6 bg-slate-800 rounded w-3/4 mb-3" />
-                <div className="h-4 bg-slate-800 rounded w-full mb-2" />
-                <div className="h-4 bg-slate-800 rounded w-2/3 mb-6" />
-                <div className="h-10 bg-slate-800 rounded-2xl mt-auto" />
+              <div key={n} className="bg-[#FDFDFD] border border-[#DFDFE0] rounded-3xl p-6 h-80 animate-pulse">
+                <div className="h-4 bg-[#DFDFE0] rounded w-1/3 mb-4" />
+                <div className="h-6 bg-[#DFDFE0] rounded w-3/4 mb-3" />
+                <div className="h-4 bg-[#DFDFE0] rounded w-full mb-2" />
+                <div className="h-4 bg-[#DFDFE0] rounded w-2/3 mb-6" />
+                <div className="h-10 bg-[#DFDFE0] rounded-2xl mt-auto" />
               </div>
             ))}
           </div>
         ) : filteredEvents.length === 0 ? (
-          <div className="text-center py-20 bg-slate-900/40 border border-slate-800 rounded-3xl">
-            <Trophy className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-            <h3 className="text-lg font-bold text-white mb-1">No events found</h3>
-            <p className="text-sm text-slate-400 max-w-sm mx-auto mb-6">
+          <div className="text-center py-20 bg-[#FDFDFD] border border-[#DFDFE0] rounded-3xl shadow-sm">
+            <Trophy className="w-12 h-12 text-[#B6ADC3] mx-auto mb-3" />
+            <h3 className="text-lg font-bold text-[#18181B] mb-1">No events found</h3>
+            <p className="text-sm text-[#636363] max-w-sm mx-auto mb-6">
               No matching events or hackathons were found with the selected category or search filters.
             </p>
             <button
@@ -320,7 +334,7 @@ export const Events: React.FC = () => {
                 setStatusFilter('ALL');
                 setSearchQuery('');
               }}
-              className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold"
+              className="px-4 py-2 bg-[#FDFDFD] hover:bg-white text-[#18181B] border border-[#DFDFE0] rounded-xl text-xs font-semibold shadow-xs cursor-pointer"
             >
               Reset Filters
             </button>
@@ -338,12 +352,12 @@ export const Events: React.FC = () => {
                   key={event.id}
                   initial={{ opacity: 0, scale: 0.98 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="bg-slate-900/90 border border-slate-800 hover:border-slate-700/80 rounded-3xl p-6 flex flex-col justify-between transition-all duration-200 group hover:shadow-2xl hover:shadow-primary-500/5 relative overflow-hidden"
+                  className="bg-[#FDFDFD] border border-[#DFDFE0] hover:border-[#B6ADC3] rounded-3xl p-6 flex flex-col justify-between transition-all duration-200 group shadow-[0_4px_25px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(119,107,253,0.08)] relative overflow-hidden"
                 >
                   <div>
                     {/* Header: Category & Status */}
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-slate-800 text-primary-400 border border-slate-700/60">
+                      <span className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-[#776BFD]/10 text-[#776BFD] border border-[#776BFD]/20">
                         {event.category}
                       </span>
                       <StatusBadge status={event.status} />
@@ -352,26 +366,26 @@ export const Events: React.FC = () => {
                     {/* Title & Description */}
                     <h3
                       onClick={() => setSelectedEvent(event)}
-                      className="text-xl font-extrabold text-white mb-2 leading-snug cursor-pointer group-hover:text-primary-300 transition-colors"
+                      className="text-xl font-black text-[#18181B] mb-2 leading-snug cursor-pointer group-hover:text-[#776BFD] transition-colors"
                     >
                       {event.title}
                     </h3>
-                    <p className="text-xs text-slate-400 line-clamp-2 mb-4 leading-relaxed">
+                    <p className="text-xs text-[#636363] line-clamp-2 mb-4 leading-relaxed font-medium">
                       {event.description}
                     </p>
 
                     {/* Event Time & Venue Chips */}
-                    <div className="space-y-2 mb-4 text-xs text-slate-400">
+                    <div className="space-y-2 mb-4 text-xs text-[#636363] font-medium">
                       <div className="flex items-center space-x-2">
-                        <Calendar className="w-3.5 h-3.5 text-primary-400 shrink-0" />
+                        <Calendar className="w-3.5 h-3.5 text-[#776BFD] shrink-0" />
                         <span>{formatDate(event.startsAt)}</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <Clock className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                        <Clock className="w-3.5 h-3.5 text-[#B6ADC3] shrink-0" />
                         <span>{formatTimeRange(event.startsAt, event.endsAt)}</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <MapPin className="w-3.5 h-3.5 text-rose-400 shrink-0" />
+                        <MapPin className="w-3.5 h-3.5 text-[#F86B7E] shrink-0" />
                         <span className="truncate">{event.locationName || event.buildingName || 'Campus Venue'}</span>
                       </div>
                     </div>
@@ -379,23 +393,23 @@ export const Events: React.FC = () => {
                     {/* Capacity Bar */}
                     {event.capacity && (
                       <div className="mb-4">
-                        <div className="flex items-center justify-between text-[11px] text-slate-400 mb-1">
+                        <div className="flex items-center justify-between text-[11px] text-[#636363] mb-1 font-medium">
                           <span className="flex items-center space-x-1">
-                            <Users className="w-3 h-3 text-slate-500" />
+                            <Users className="w-3 h-3 text-[#B6ADC3]" />
                             <span>Capacity</span>
                           </span>
-                          <span className="font-semibold text-slate-300">
+                          <span className="font-bold text-[#18181B]">
                             {event.registeredCount} / {event.capacity} ({capacityPercent}%)
                           </span>
                         </div>
-                        <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                        <div className="w-full bg-[#DFDFE0] rounded-full h-1.5 overflow-hidden">
                           <div
                             className={`h-full rounded-full transition-all duration-300 ${
                               (capacityPercent ?? 0) > 90
-                                ? 'bg-rose-500'
+                                ? 'bg-[#F86B7E]'
                                 : (capacityPercent ?? 0) > 70
-                                ? 'bg-amber-500'
-                                : 'bg-primary-500'
+                                ? 'bg-[#B6ADC3]'
+                                : 'bg-[#776BFD]'
                             }`}
                             style={{ width: `${capacityPercent}%` }}
                           />
@@ -405,30 +419,30 @@ export const Events: React.FC = () => {
                   </div>
 
                   {/* Card Actions */}
-                  <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between gap-2 mt-2">
+                  <div className="pt-4 border-t border-[#DFDFE0] flex items-center justify-between gap-2 mt-2">
                     <button
                       onClick={() => setSelectedEvent(event)}
-                      className="flex-1 py-2.5 px-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold transition-all flex items-center justify-center space-x-1.5"
+                      className="flex-1 py-2.5 px-3 bg-[#FDFDFD] hover:bg-white text-[#18181B] border border-[#DFDFE0] rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-1.5 cursor-pointer shadow-xs"
                     >
                       <span>Details</span>
                       <ChevronRight className="w-3.5 h-3.5" />
                     </button>
 
                     <button
-                      onClick={() => handleRegister(event.id)}
-                      disabled={isRegistered || (event.capacity !== undefined && event.registeredCount >= event.capacity)}
-                      className={`py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 ${
+                      onClick={() => isRegistered ? handleDeregister(event.id) : handleRegister(event.id)}
+                      disabled={registering || (!isRegistered && event.capacity !== undefined && event.registeredCount >= event.capacity)}
+                      className={`py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 cursor-pointer ${
                         isRegistered
-                          ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                          ? 'bg-[#F86B7E]/10 text-[#EE495F] border border-[#F86B7E]/20'
                           : (event.capacity !== undefined && event.registeredCount >= event.capacity)
-                          ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
-                          : 'bg-primary-500 hover:bg-primary-400 text-white shadow-md shadow-primary-500/20'
+                          ? 'bg-[#DFDFE0] text-[#636363] cursor-not-allowed'
+                          : 'btn-primary'
                       }`}
                     >
                       {isRegistered ? (
                         <>
                           <CheckCircle2 className="w-3.5 h-3.5" />
-                          <span>RSVP'd</span>
+                          <span>Cancel RSVP</span>
                         </>
                       ) : (
                         <>
@@ -447,7 +461,7 @@ export const Events: React.FC = () => {
                         }
                       }}
                       title="Locate Venue on Map"
-                      className="p-2.5 bg-slate-800 hover:bg-slate-700 text-rose-400 rounded-xl transition-all"
+                      className="p-2.5 bg-[#FDFDFD] hover:bg-white border border-[#DFDFE0] text-[#776BFD] rounded-xl transition-all cursor-pointer shadow-xs"
                     >
                       <MapPin className="w-4 h-4" />
                     </button>
@@ -461,45 +475,45 @@ export const Events: React.FC = () => {
         {/* Event Detail & RSVP Modal */}
         <AnimatePresence>
           {selectedEvent && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#18181B]/40 backdrop-blur-md">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative overflow-hidden max-h-[90vh] overflow-y-auto"
+                className="bg-[#FDFDFD] border border-[#DFDFE0] rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative overflow-hidden max-h-[90vh] overflow-y-auto text-[#18181B]"
               >
                 {/* Close Button */}
                 <button
                   onClick={() => setSelectedEvent(null)}
-                  className="absolute right-5 top-5 p-2 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-full transition-all"
+                  className="absolute right-5 top-5 p-2 bg-[#DFDFE0]/50 hover:bg-[#DFDFE0] text-[#636363] hover:text-[#18181B] rounded-full transition-all cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
 
                 {/* Badges */}
                 <div className="flex items-center space-x-2 mb-3">
-                  <span className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-primary-500/10 text-primary-400 border border-primary-500/20">
+                  <span className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-[#776BFD]/10 text-[#776BFD] border border-[#776BFD]/20">
                     {selectedEvent.category}
                   </span>
                   <StatusBadge status={selectedEvent.status} />
                   {selectedEvent.isFeatured && (
-                    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300">
+                    <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#F86B7E]/10 text-[#F86B7E] border border-[#F86B7E]/20">
                       ★ Featured
                     </span>
                   )}
                 </div>
 
                 {/* Title & Organizer */}
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">
+                <h2 className="text-2xl sm:text-3xl font-black text-[#18181B] mb-2">
                   {selectedEvent.title}
                 </h2>
-                <p className="text-xs text-slate-400 mb-6 flex items-center space-x-2">
+                <p className="text-xs text-[#636363] mb-6 flex items-center space-x-2 font-medium">
                   <span>Organized by:</span>
-                  <span className="font-semibold text-white">{selectedEvent.organizer}</span>
+                  <span className="font-bold text-[#18181B]">{selectedEvent.organizer}</span>
                   {selectedEvent.contactEmail && (
                     <>
                       <span>•</span>
-                      <a href={`mailto:${selectedEvent.contactEmail}`} className="text-primary-400 hover:underline">
+                      <a href={`mailto:${selectedEvent.contactEmail}`} className="text-[#776BFD] hover:underline">
                         {selectedEvent.contactEmail}
                       </a>
                     </>
@@ -507,34 +521,34 @@ export const Events: React.FC = () => {
                 </p>
 
                 {/* Key Details Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 bg-slate-950/60 border border-slate-800/80 rounded-2xl mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 bg-[#DFDFE0]/30 border border-[#DFDFE0] rounded-2xl mb-6">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-xl bg-primary-500/10 flex items-center justify-center text-primary-400 shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-[#776BFD]/10 flex items-center justify-center text-[#776BFD] shrink-0">
                       <Calendar className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-[11px] text-slate-500 uppercase font-semibold">Date</div>
-                      <div className="text-xs font-bold text-white">{formatDate(selectedEvent.startsAt)}</div>
+                      <div className="text-[11px] text-[#636363] uppercase font-semibold">Date</div>
+                      <div className="text-xs font-bold text-[#18181B]">{formatDate(selectedEvent.startsAt)}</div>
                     </div>
                   </div>
 
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-[#B6ADC3]/20 flex items-center justify-center text-[#636363] shrink-0">
                       <Clock className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-[11px] text-slate-500 uppercase font-semibold">Timing</div>
-                      <div className="text-xs font-bold text-white">{formatTimeRange(selectedEvent.startsAt, selectedEvent.endsAt)}</div>
+                      <div className="text-[11px] text-[#636363] uppercase font-semibold">Timing</div>
+                      <div className="text-xs font-bold text-[#18181B]">{formatTimeRange(selectedEvent.startsAt, selectedEvent.endsAt)}</div>
                     </div>
                   </div>
 
                   <div className="flex items-center space-x-3 sm:col-span-2">
-                    <div className="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center text-rose-400 shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-[#F86B7E]/10 flex items-center justify-center text-[#F86B7E] shrink-0">
                       <MapPin className="w-5 h-5" />
                     </div>
                     <div className="flex-1 truncate">
-                      <div className="text-[11px] text-slate-500 uppercase font-semibold">Venue / Location</div>
-                      <div className="text-xs font-bold text-white truncate">
+                      <div className="text-[11px] text-[#636363] uppercase font-semibold">Venue / Location</div>
+                      <div className="text-xs font-bold text-[#18181B] truncate">
                         {selectedEvent.locationName || selectedEvent.roomName || selectedEvent.buildingName || 'Campus Venue'}
                       </div>
                     </div>
@@ -547,7 +561,7 @@ export const Events: React.FC = () => {
                           navigate('/map');
                         }
                       }}
-                      className="px-3 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-bold rounded-lg border border-rose-500/20 transition-all flex items-center space-x-1 shrink-0"
+                      className="px-3 py-1.5 bg-[#F86B7E]/10 hover:bg-[#F86B7E]/20 text-[#F86B7E] text-xs font-bold rounded-xl border border-[#F86B7E]/20 transition-all flex items-center space-x-1 shrink-0 cursor-pointer"
                     >
                       <MapPin className="w-3.5 h-3.5" />
                       <span>Map Route</span>
@@ -557,26 +571,26 @@ export const Events: React.FC = () => {
 
                 {/* Full Description */}
                 <div className="mb-6">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#636363] mb-2">
                     About This Event
                   </h4>
-                  <p className="text-sm text-slate-300 leading-relaxed whitespace-pre-line">
+                  <p className="text-sm text-[#636363] leading-relaxed whitespace-pre-line font-medium">
                     {selectedEvent.description}
                   </p>
                 </div>
 
                 {/* Capacity Counter */}
                 {selectedEvent.capacity && (
-                  <div className="mb-6 p-4 bg-slate-950/60 rounded-2xl border border-slate-800">
+                  <div className="mb-6 p-4 bg-[#DFDFE0]/30 rounded-2xl border border-[#DFDFE0]">
                     <div className="flex items-center justify-between text-xs mb-2">
-                      <span className="text-slate-400">Total Registered Attendees:</span>
-                      <span className="font-extrabold text-white">
+                      <span className="text-[#636363] font-medium">Total Registered Attendees:</span>
+                      <span className="font-black text-[#18181B]">
                         {selectedEvent.registeredCount} / {selectedEvent.capacity}
                       </span>
                     </div>
-                    <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                    <div className="w-full bg-[#DFDFE0] rounded-full h-2 overflow-hidden">
                       <div
-                        className="bg-primary-500 h-full rounded-full transition-all duration-300"
+                        className="bg-[#776BFD] h-full rounded-full transition-all duration-300"
                         style={{
                           width: `${Math.min(100, (selectedEvent.registeredCount / selectedEvent.capacity) * 100)}%`,
                         }}
@@ -586,24 +600,24 @@ export const Events: React.FC = () => {
                 )}
 
                 {/* Modal Footer Actions */}
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-slate-800">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-[#DFDFE0]">
                   <div className="flex items-center space-x-2 w-full sm:w-auto">
                     <button
                       onClick={() => handleShare(selectedEvent)}
-                      className="p-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-2xl transition-all"
+                      className="p-3 bg-[#FDFDFD] hover:bg-white text-[#636363] border border-[#DFDFE0] rounded-2xl transition-all cursor-pointer shadow-xs"
                       title="Share Event"
                     >
                       <Share2 className="w-4 h-4" />
                     </button>
                     {copiedLink && (
-                      <span className="text-xs text-emerald-400 font-semibold animate-pulse">Link copied!</span>
+                      <span className="text-xs text-emerald-600 font-bold animate-pulse">Link copied!</span>
                     )}
                     {selectedEvent.registrationUrl && (
                       <a
                         href={selectedEvent.registrationUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="p-3 bg-slate-800 hover:bg-slate-700 text-primary-400 rounded-2xl transition-all flex items-center space-x-1"
+                        className="p-3 bg-[#FDFDFD] hover:bg-white text-[#776BFD] border border-[#DFDFE0] rounded-2xl transition-all flex items-center space-x-1 shadow-xs"
                         title="External Registration Portal"
                       >
                         <ExternalLink className="w-4 h-4" />
@@ -613,28 +627,27 @@ export const Events: React.FC = () => {
 
                   <div className="flex items-center space-x-3 w-full sm:w-auto">
                     <button
-                      onClick={() => handleRegister(selectedEvent.id)}
+                      onClick={() => registeredEvents[selectedEvent.id] ? handleDeregister(selectedEvent.id) : handleRegister(selectedEvent.id)}
                       disabled={
                         registering ||
-                        registeredEvents[selectedEvent.id] ||
-                        (selectedEvent.capacity !== undefined && selectedEvent.registeredCount >= selectedEvent.capacity)
+                        (!registeredEvents[selectedEvent.id] && selectedEvent.capacity !== undefined && selectedEvent.registeredCount >= selectedEvent.capacity)
                       }
-                      className={`flex-1 sm:flex-none px-6 py-3.5 rounded-2xl text-xs font-bold transition-all flex items-center justify-center space-x-2 ${
+                      className={`flex-1 sm:flex-none px-6 py-3.5 rounded-2xl text-xs font-bold transition-all flex items-center justify-center space-x-2 cursor-pointer ${
                         registeredEvents[selectedEvent.id]
-                          ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                          ? 'bg-[#F86B7E]/10 text-[#EE495F] border border-[#F86B7E]/20'
                           : (selectedEvent.capacity !== undefined && selectedEvent.registeredCount >= selectedEvent.capacity)
-                          ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
-                          : 'bg-primary-500 hover:bg-primary-400 text-white shadow-xl shadow-primary-500/20'
+                          ? 'bg-[#DFDFE0] text-[#636363] cursor-not-allowed'
+                          : 'btn-primary'
                       }`}
                     >
                       {registeredEvents[selectedEvent.id] ? (
                         <>
-                          <CheckCircle2 className="w-4 h-4" />
-                          <span>You're Registered!</span>
+                          <CheckCircle2 className="w-3.5 h-3.5" />
+                          <span>Cancel RSVP</span>
                         </>
                       ) : (
                         <>
-                          <Ticket className="w-4 h-4" />
+                          <Ticket className="w-3.5 h-3.5" />
                           <span>Confirm RSVP</span>
                         </>
                       )}
@@ -668,13 +681,13 @@ const StatusBadge: React.FC<{ status: EventStatus }> = ({ status }) => {
       );
     case 'COMPLETED':
       return (
-        <span className="inline-flex items-center space-x-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">
+        <span className="inline-flex items-center space-x-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-[#DFDFE0] text-[#636363] border border-[#DFDFE0]">
           <span>COMPLETED</span>
         </span>
       );
     case 'CANCELLED':
       return (
-        <span className="inline-flex items-center space-x-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-rose-950 text-rose-500">
+        <span className="inline-flex items-center space-x-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-[#F86B7E]/10 text-[#F86B7E] border border-[#F86B7E]/20">
           <span>CANCELLED</span>
         </span>
       );

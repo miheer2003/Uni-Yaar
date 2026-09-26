@@ -7,50 +7,80 @@ export default {
   theme: {
     extend: {
       colors: {
-        // UniYaar Brand Colors
+        // Octet Minimalist Health-Track Inspired Palette
+        canvas: '#DFDFE0',      // Christmas Silver - Page Background
+        surface: '#FDFDFD',     // Brilliance - Card & Container Background
+        lilac: {
+          50: '#F8F7FA',
+          100: '#F0EFF4',
+          200: '#E1DFE9',
+          300: '#CBC7D6',
+          400: '#B6ADC3',       // Misty Lilac - Soft accent
+          500: '#9B90AC',
+          600: '#807493',
+          700: '#675C78',
+          800: '#524960',
+          950: '#231E2A',
+        },
+        flamingo: {
+          50: '#FEF1F3',
+          100: '#FDE1E5',
+          200: '#FBC4CC',
+          300: '#F99DAA',
+          400: '#F86B7E',       // Fiery Flamingo - Coral / Pink-Red
+          500: '#EE495F',
+          600: '#D92A42',
+          700: '#B71E34',
+          800: '#981B2D',
+          900: '#7E1C2B',
+        },
         primary: {
-          50: '#fffbeb',
-          100: '#fef3c7',
-          200: '#fde68a',
-          300: '#fcd34d',
-          400: '#fbbf24',
-          500: '#f59e0b', // Main saffron/amber
-          600: '#d97706',
-          700: '#b45309',
-          800: '#92400e',
-          900: '#78350f',
+          50: '#F4F3FE',
+          100: '#EAE8FE',
+          200: '#D7D3FD',
+          300: '#B7AFFC',
+          400: '#9284FA',
+          500: '#776BFD',       // Stargate Shimmer - Vibrant Indigo/Periwinkle
+          600: '#6455F5',
+          700: '#5241DC',
+          800: '#4334B4',
+          900: '#382D90',
+          950: '#211B5A',
         },
-        accent: {
-          50: '#fff7ed',
-          100: '#ffedd5',
-          200: '#fed7aa',
-          300: '#fdba74',
-          400: '#fb923c',
-          500: '#ea580c', // Deep orange accent
-          600: '#c2410c',
-          700: '#9a3412',
-          800: '#7c2d12',
-          900: '#6c2e12',
-        },
-        slate: {
-          850: '#1e293b', // Custom card surface
-          950: '#0f172a', // Deep background
+        digital: {
+          50: '#F7F7F8',
+          100: '#EEEEF0',
+          200: '#DADAE0',
+          300: '#BDBDC6',
+          400: '#9A9AA6',
+          500: '#7B7B88',
+          600: '#636363',       // Digital - Refined Mid-Dark Gray
+          700: '#4F4F54',
+          800: '#3D3D42',
+          900: '#262629',
+          950: '#18181B',       // Crisp Dark Heading
         },
         success: {
-          500: '#10b981', // Emerald for availability
+          500: '#10B981',
           600: '#059669',
         },
         warning: {
-          500: '#f59e0b',
-          600: '#d97706',
+          500: '#F59E0B',
+          600: '#D97706',
         },
         danger: {
-          500: '#ef4444',
-          600: '#dc2626',
+          500: '#F86B7E',
+          600: '#EE495F',
         },
       },
       fontFamily: {
-        sans: ['Inter', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
+      },
+      boxShadow: {
+        'clean': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+        'clean-lg': '0 10px 30px -3px rgba(0, 0, 0, 0.08)',
+        'stargate': '0 8px 24px -4px rgba(119, 107, 253, 0.35)',
+        'flamingo': '0 8px 24px -4px rgba(248, 107, 126, 0.35)',
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',

@@ -17,7 +17,8 @@ import { Facilities } from './pages/Facilities';
 import { Announcements } from './pages/Announcements';
 import { AdminDashboard } from './pages/AdminDashboard';
 import { CommandPalette } from './components/search/CommandPalette';
-import { PublicRoute } from './components/auth/ProtectedRoute';
+import ProtectedRoute, { PublicRoute } from './components/auth/ProtectedRoute';
+import RoleDashboard from './pages/RoleDashboard';
 import { healthApi } from './api/client';
 
 const features: { icon: LucideIcon; title: string; description: string; color: string; href: string }[] = [
@@ -43,21 +44,31 @@ function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-[#DFDFE0] text-[#18181B]">
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-slate-700 mb-8">
-              {backendStatus === 'checking' && (<><div className="w-2 h-2 rounded-full bg-slate-400 animate-pulse" /><span className="text-slate-400 text-sm">Connecting...</span></>)}
-              {backendStatus === 'connected' && (<><CheckCircle2 className="w-4 h-4 text-success-500" /><span className="text-success-500 text-sm">Backend v{backendVersion} Connected</span></>)}
-              {backendStatus === 'error' && (<><AlertCircle className="w-4 h-4 text-danger-500" /><span className="text-danger-500 text-sm">Backend Disconnected</span></>)}
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#FDFDFD] border border-[#DFDFE0] shadow-sm mb-8">
+              {backendStatus === 'checking' && (<><div className="w-2 h-2 rounded-full bg-[#B6ADC3] animate-pulse" /><span className="text-[#636363] text-sm font-semibold">Connecting...</span></>)}
+              {backendStatus === 'connected' && (<><CheckCircle2 className="w-4 h-4 text-emerald-500" /><span className="text-emerald-700 text-sm font-semibold">Backend v{backendVersion} Connected</span></>)}
+              {backendStatus === 'error' && (<><AlertCircle className="w-4 h-4 text-[#F86B7E]" /><span className="text-[#F86B7E] text-sm font-semibold">Backend Disconnected</span></>)}
             </motion.div>
-            <h1 className="text-5xl md:text-7xl font-extrabold mb-6"><span className="text-white">Your Campus, </span><span className="gradient-text">Simplified.</span></h1>
-            <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto mb-8">Find buildings, locate faculty, check mess menus, discover events. <span className="text-primary-400">Apni Uni. Apna Yaar.</span></p>
+            <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight">
+              <span className="text-[#18181B]">Your Campus, </span>
+              <span className="bg-gradient-to-r from-[#776BFD] to-[#F86B7E] bg-clip-text text-transparent">Simplified.</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-[#636363] max-w-3xl mx-auto mb-8 font-medium">
+              Find buildings, locate faculty, check mess menus, discover events. <span className="text-[#776BFD] font-bold">Apni Uni. Apna Yaar.</span>
+            </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-              <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="btn-primary flex items-center space-x-2 text-lg"><MapPin className="w-5 h-5" /><span>Explore Campus</span></motion.button>
-              <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="btn-secondary flex items-center space-x-2 text-lg"><span>Learn More</span><ChevronRight className="w-5 h-5" /></motion.button>
+              <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => window.location.href='/map'} className="btn-primary flex items-center space-x-2 text-lg px-8 py-3.5 shadow-md shadow-[#776BFD]/25">
+                <MapPin className="w-5 h-5" />
+                <span>Explore Campus</span>
+              </motion.button>
+              <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => window.location.href='/events'} className="btn-secondary flex items-center space-x-2 text-lg px-8 py-3.5">
+                <span>Campus Events</span>
+                <ChevronRight className="w-5 h-5 text-[#636363]" />
+              </motion.button>
             </div>
             <div className="max-w-2xl mx-auto">
               <div
@@ -68,41 +79,46 @@ function HomePage() {
                   type="text"
                   readOnly
                   placeholder="Search buildings, faculty, events, food..."
-                  className="input text-lg cursor-pointer"
+                  className="input text-base cursor-pointer shadow-sm pr-28 py-3.5"
                 />
                 <button
                   type="button"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-slate-950 font-semibold rounded-xl transition-colors"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 px-5 py-2 bg-[#776BFD] hover:bg-[#6455F5] text-white font-bold rounded-xl transition-colors shadow-sm shadow-[#776BFD]/20 text-sm"
                 >
                   Search
                 </button>
               </div>
-              <p className="text-slate-500 text-sm mt-3">Press <kbd className="px-2 py-0.5 bg-slate-800 rounded text-slate-400">Cmd+K</kbd> for quick search</p>
+              <p className="text-[#636363] text-sm mt-3 font-medium">Press <kbd className="px-2 py-0.5 bg-white border border-[#DFDFE0] rounded-lg text-[#636363] font-mono text-xs shadow-2xs">Cmd+K</kbd> for quick search</p>
             </div>
           </motion.div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent" />
       </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Everything You Need, <span className="gradient-text">One Platform</span></h2>
-          <p className="text-slate-400 max-w-2xl mx-auto">From finding your next class to checking what is for lunch, UniYaar puts your entire campus at your fingertips.</p>
+          <h2 className="text-3xl md:text-5xl font-black text-[#18181B] mb-4 tracking-tight">Everything You Need, <span className="bg-gradient-to-r from-[#776BFD] to-[#F86B7E] bg-clip-text text-transparent">One Platform</span></h2>
+          <p className="text-[#636363] text-lg max-w-2xl mx-auto font-medium">From finding your next class to checking what is for lunch, UniYaar puts your entire campus at your fingertips.</p>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
-            <motion.a key={feature.title} href={feature.href} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }} whileHover={{ y: -4 }} className="card-hover group">
-              <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}><feature.icon className="w-6 h-6 text-white" /></div>
-              <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
-              <p className="text-slate-400">{feature.description}</p>
+            <motion.a key={feature.title} href={feature.href} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }} whileHover={{ y: -4 }} className="card-hover group">
+              <div className="w-12 h-12 rounded-2xl bg-[#776BFD]/10 text-[#776BFD] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                <feature.icon className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-[#18181B] mb-2">{feature.title}</h3>
+              <p className="text-[#636363] text-sm leading-relaxed">{feature.description}</p>
             </motion.a>
           ))}
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="card text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Ready to explore your campus?</h2>
-          <p className="text-slate-400 mb-8 max-w-2xl mx-auto">Start discovering everything your university has to offer.</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4"><button className="btn-primary">Get Started</button><button className="btn-secondary">View Demo</button></div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="card text-center p-10 sm:p-12 border border-[#DFDFE0] shadow-sm">
+          <h2 className="text-2xl md:text-4xl font-black text-[#18181B] mb-3">Ready to explore your campus?</h2>
+          <p className="text-[#636363] mb-8 max-w-2xl mx-auto font-medium">Start discovering everything your university has to offer in one place.</p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button onClick={() => window.location.href='/register'} className="btn-primary">Get Started</button>
+            <button onClick={() => window.location.href='/map'} className="btn-secondary">Explore Map</button>
+          </div>
         </motion.div>
       </div>
     </div>
@@ -126,7 +142,7 @@ function PageTransition({ children }: { children: React.ReactNode }) {
 function App() {
   const location = useLocation();
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col">
+    <div className="min-h-screen bg-[#DFDFE0] text-[#18181B] flex flex-col font-sans">
       <CommandPalette />
       <Navbar />
       <main className="flex-1 pt-16 h-full relative">
@@ -144,7 +160,8 @@ function App() {
             <Route path="/events" element={<PageTransition><Events /></PageTransition>} />
             <Route path="/facilities" element={<PageTransition><Facilities /></PageTransition>} />
             <Route path="/announcements" element={<PageTransition><Announcements /></PageTransition>} />
-            <Route path="/admin" element={<PageTransition><AdminDashboard /></PageTransition>} />
+            <Route path="/admin" element={<PageTransition><ProtectedRoute allowedRoles={['ROLE_ADMIN']}><AdminDashboard /></ProtectedRoute></PageTransition>} />
+            <Route path="/dashboard" element={<PageTransition><ProtectedRoute allowedRoles={['ROLE_STUDENT', 'ROLE_FACULTY', 'ROLE_FOOD_STAFF']}><RoleDashboard /></ProtectedRoute></PageTransition>} />
           </Routes>
         </AnimatePresence>
       </main>

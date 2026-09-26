@@ -14,15 +14,15 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const from = (location.state as { from?: Location })?.from?.pathname || '/'; // eslint-disable-line @typescript-eslint/no-explicit-any
+  const from = (location.state as { from?: Location })?.from?.pathname || '/';
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<{ email: string; password: string }>();
+  } = useForm<{ email: string; password: string; rememberMe: boolean }>({ defaultValues: { rememberMe: false } });
 
-  const onSubmit = async (data: { email: string; password: string }) => {
+  const onSubmit = async (data: { email: string; password: string; rememberMe: boolean }) => {
     setIsLoading(true);
     setError('');
     try {
@@ -36,39 +36,39 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#DFDFE0] text-[#18181B] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 font-sans">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md"
       >
-        <div className="card p-8">
+        <div className="bg-[#FDFDFD] border border-[#DFDFE0] rounded-3xl p-8 sm:p-10 shadow-[0_4px_25px_rgba(0,0,0,0.04)]">
           <div className="text-center mb-8">
-            <Link to="/" className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-accent-500 rounded-xl mb-6">
-              <span className="text-slate-950 font-bold text-2xl">U</span>
+            <Link to="/" className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#776BFD] to-[#F86B7E] rounded-2xl mb-6 shadow-md shadow-[#776BFD]/20">
+              <span className="text-white font-black text-2xl">U</span>
             </Link>
-            <h1 className="text-3xl font-bold text-white">Welcome back</h1>
-            <p className="text-slate-400 mt-2">Sign in to your UniYaar account</p>
+            <h1 className="text-3xl font-black text-[#18181B] tracking-tight">Welcome back</h1>
+            <p className="text-[#636363] mt-2 font-medium">Sign in to your UniYaar account</p>
           </div>
 
           {error && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex items-center space-x-2 p-3 bg-danger-500/10 border border-danger-500/30 rounded-lg text-danger-400 text-sm mb-6"
+              className="flex items-center space-x-2 p-3.5 bg-[#F86B7E]/10 border border-[#F86B7E]/30 rounded-2xl text-[#EE495F] text-sm mb-6 font-semibold"
             >
-              <AlertCircle className="w-5 h-5 flex-shrink-0" />
+              <AlertCircle className="w-5 h-5 flex-shrink-0 text-[#F86B7E]" />
               <span>{error}</span>
             </motion.div>
           )}
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-1.5">
+              <label htmlFor="email" className="block text-xs font-bold text-[#636363] uppercase tracking-wider mb-2">
                 Email address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-[#636363]" />
                 <input
                   {...register('email', {
                     required: 'Email is required',
@@ -82,26 +82,26 @@ export default function Login() {
                   type="email"
                   autoComplete="email"
                   className={clsx(
-                    'w-full pl-10 pr-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-white placeholder-slate-500',
-                    'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent',
-                    'transition-all duration-200',
-                    errors.email && 'border-danger-500 focus:ring-danger-500'
+                    'w-full pl-11 pr-4 py-3 bg-white border border-[#DFDFE0] rounded-2xl text-[#18181B] placeholder-[#636363]/60',
+                    'focus:outline-none focus:ring-2 focus:ring-[#776BFD]/20 focus:border-[#776BFD]',
+                    'transition-all duration-200 shadow-2xs',
+                    errors.email && 'border-[#F86B7E] focus:ring-[#F86B7E]/20'
                   )}
                   placeholder="you@university.edu"
                   disabled={isLoading}
                 />
               </div>
               {errors.email && (
-                <p className="mt-1.5 text-sm text-danger-400">{errors.email.message}</p>
+                <p className="mt-1.5 text-xs font-bold text-[#EE495F]">{errors.email.message}</p>
               )}
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-1.5">
+              <label htmlFor="password" className="block text-xs font-bold text-[#636363] uppercase tracking-wider mb-2">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-[#636363]" />
                 <input
                   {...register('password', {
                     required: 'Password is required',
@@ -115,47 +115,43 @@ export default function Login() {
                   type={showPassword ? 'text' : 'password'}
                   autoComplete="current-password"
                   className={clsx(
-                    'w-full pl-10 pr-12 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-white placeholder-slate-500',
-                    'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent',
-                    'transition-all duration-200',
-                    errors.password && 'border-danger-500 focus:ring-danger-500'
+                    'w-full pl-11 pr-12 py-3 bg-white border border-[#DFDFE0] rounded-2xl text-[#18181B] placeholder-[#636363]/60',
+                    'focus:outline-none focus:ring-2 focus:ring-[#776BFD]/20 focus:border-[#776BFD]',
+                    'transition-all duration-200 shadow-2xs',
+                    errors.password && 'border-[#F86B7E] focus:ring-[#F86B7E]/20'
                   )}
-                  placeholder="\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"
+                  placeholder="••••••••"
                   disabled={isLoading}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white transition-colors"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#636363] hover:text-[#18181B] transition-colors"
                 >
-                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5 text-[#776BFD]" />}
                 </button>
               </div>
               {errors.password && (
-                <p className="mt-1.5 text-sm text-danger-400">{errors.password.message}</p>
+                <p className="mt-1.5 text-xs font-bold text-[#EE495F]">{errors.password.message}</p>
               )}
             </div>
 
             <div className="flex items-center justify-between">
-              <label className="flex items-center space-x-2 text-sm text-slate-400 cursor-pointer">
-                <input type="checkbox" className="w-4 h-4 rounded border-slate-600 text-primary-500 focus:ring-primary-500 bg-slate-800" />
+              <label className="flex items-center space-x-2 text-xs font-semibold text-[#636363] cursor-pointer">
+                <input {...register('rememberMe')} type="checkbox" className="w-4 h-4 rounded-md border-[#DFDFE0] text-[#776BFD] focus:ring-[#776BFD]" />
                 <span>Remember me</span>
               </label>
-              <Link to="/forgot-password" className="text-sm text-primary-400 hover:text-primary-300 transition-colors">
+              <Link to="/forgot-password" className="text-xs font-bold text-[#776BFD] hover:underline">
                 Forgot password?
               </Link>
             </div>
 
             <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
               type="submit"
               disabled={isLoading}
-              className={clsx(
-                'w-full py-3 px-4 bg-gradient-to-r from-primary-500 to-primary-600 text-slate-950 font-semibold rounded-lg',
-                'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-slate-950',
-                'transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed'
-              )}
+              className="w-full py-3.5 px-4 bg-[#776BFD] hover:bg-[#6455F5] text-white font-bold rounded-2xl shadow-md shadow-[#776BFD]/25 transition-all duration-200 disabled:opacity-50 cursor-pointer text-sm"
             >
               {isLoading ? (
                 <span className="flex items-center justify-center space-x-2">
@@ -163,26 +159,26 @@ export default function Login() {
                   <span>Signing in...</span>
                 </span>
               ) : (
-                'Sign in'
+                'Sign In'
               )}
             </motion.button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-slate-400">
+            <p className="text-xs font-semibold text-[#636363]">
               Don't have an account?{' '}
-              <Link to="/register" className="text-primary-400 hover:text-primary-300 font-medium transition-colors">
-                Sign up
+              <Link to="/register" className="text-[#776BFD] hover:underline font-bold">
+                Signup
               </Link>
             </p>
           </div>
         </div>
 
-        <p className="mt-6 text-center text-xs text-slate-500">
+        <p className="mt-6 text-center text-xs text-[#636363]">
           By signing in, you agree to our{' '}
-          <Link to="/terms" className="text-primary-400 hover:underline">Terms of Service</Link>
+          <Link to="/terms" className="text-[#776BFD] hover:underline font-semibold">Terms of Service</Link>
           {' '}and{' '}
-          <Link to="/privacy" className="text-primary-400 hover:underline">Privacy Policy</Link>
+          <Link to="/privacy" className="text-[#776BFD] hover:underline font-semibold">Privacy Policy</Link>
         </p>
       </motion.div>
     </div>

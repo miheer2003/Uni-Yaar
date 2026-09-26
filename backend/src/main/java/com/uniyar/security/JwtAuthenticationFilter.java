@@ -41,12 +41,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         jwt = authHeader.substring(7);
-        userEmail = jwtTokenProvider.getEmailFromToken(jwt);
+        try {
+            userEmail = jwtTokenProvider.getEmailFromToken(jwt);
+        } catch (Exception exception) {
+            // A malformed or expired token must not turn into a server error.
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userRepository.findByEmail(userEmail)
-                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-            if (jwtTokenProvider.validateToken(jwt)) {
+            UserDetails userDetails = userRepository.findByEmail(userEmail).orElse(null);
+            if (userDetails != null && jwtTokenProvider.validateToken(jwt)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,

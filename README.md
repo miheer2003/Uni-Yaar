@@ -9,7 +9,6 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![MySQL 8](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 
 <p align="center">
   <b>A unified, high-performance web platform designed to streamline student life, campus navigation, event discovery, dining information, faculty timetables, and administrative governance.</b>
@@ -18,7 +17,6 @@
 [✨ Highlights](#-features-at-a-glance) •
 [🏗️ Architecture](#️-system-architecture) •
 [🚀 Quick Start](#-quick-start) •
-[🐳 Docker](#-running-with-docker-compose) •
 [🔑 Demo Accounts](#-pre-seeded-demo-accounts) •
 [📡 API Reference](#-rest-api-reference)
 
@@ -161,22 +159,6 @@ graph TD
     AdminSvc --> MySQL
     Seeder -.->|Auto-populate on First Boot| MySQL
 ```
-
----
-
-## 🐳 Running with Docker Compose
-
-Launch the complete full-stack environment (MySQL, Spring Boot Backend, and Nginx-served Frontend) with one command:
-
-```bash
-docker-compose up --build
-```
-
-| Service | URL | Notes |
-|---|---|---|
-| **Frontend Web App** | `http://localhost:3000` | Nginx Alpine image, SPA fallback routing |
-| **Backend REST API** | `http://localhost:8080/api` | Spring Boot 3 on Eclipse Temurin 21 |
-| **MySQL Database** | `localhost:3306` (internal) | Auto-migrated with healthcheck |
 
 ---
 
